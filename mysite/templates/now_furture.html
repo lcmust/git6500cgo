@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+now_furture
+{% endblock %}
+
+{% block content %}
+<p> {{current_time}} </p>
+
+{% if now %}
+   <p> It's time is {{ now }}. </p>
+{% endif %}
+
+{% if furture %}
+   <p> Furture time {{ furture }}.</p>
+{% endif %}
+
+
+{% endblock %}
