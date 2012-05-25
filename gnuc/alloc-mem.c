@@ -9,6 +9,13 @@ int alloc_mem_1(int num)
 //	return (int)q;
 }
 
+int alloc_mem_2(int **tmp, int num)
+{
+	*tmp = malloc(num);
+	return 0;
+
+}
+
 int init_mem(int *tmp, int num)
 {
 	int i;
@@ -24,8 +31,10 @@ int init_mem(int *tmp, int num)
 int print_mem(const int *tmp, int num)
 {
 	int i;
+	int *p_tmp;
+	p_tmp = tmp;
 	for(i = 0; i < num; i++) {
-		printf("%d\t", tmp[i]);
+		printf("%d\t", *((p_tmp) +i ) );
 	}
 	return 0;
 }
@@ -41,17 +50,22 @@ int main(void)
 	printf("1: test of alloc_mem_1() \n");
 	handle = alloc_mem_1(NUM * sizeof(int));
 	p1 = (int*)handle;
-	printf("\naddress of:%p (no init)\n", (int)p1);
+	printf("address of:%p (no init)\n", (int)p1);
+	printf("\nprint....p1\n");
 	print_mem(p1, NUM);
-
+	printf("\ninit....p1......");
 	init_mem(p1, NUM);
-	printf("\ninit....p1\n");
+	printf("\nprint....p1\n");
 	print_mem(p1, NUM);
+//	free(p1);
+	alloc_mem_2(&p2, (NUM * sizeof(int)));
+	printf("\nprint....p2\n");
+	print_mem(p2, NUM);
+	printf("\ninit....p2......");
+	init_mem(p2, NUM);
+	printf("\nprint....p2\n");
+	print_mem(p2, NUM);
 
-	printf("\n");
-	free(p1);
-	p2 = (int *)alloc_mem_1(NUM * sizeof(int));
-	printf("\ninit....p2\n");
-	print_mem(p1, NUM);
+	free(p2);
 	return 0;
 }

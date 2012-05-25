@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.views.generic import list_detail
-from mysite.polls.models import Publisher
+from polls.models import Publisher
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -44,8 +44,10 @@ urlpatterns = patterns('',
     url(r'logout/$', 'polls.views.logout'),
     url(r'register/$', 'polls.views.register'),
     #css
-    url(r'^css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/mnt/sda2h/tools/git1/chengl6500/mysite/templates/static/admin/css/'}),
+    #    url(r'^css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/mnt/sda2h/tools/git1/chengl6500/mysite/templates/static/admin/css/'}),
+    url(r'^css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/css/'}),
     #jpg|png
-    url(r'^img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/mnt/sda2h/tools/git1/chengl6500/mysite/templates/static/admin/js/'}),
+    #    url(r'^img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/mnt/sda2h/tools/git1/chengl6500/mysite/templates/static/admin/js/'}),
+    url(r'^img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/css/'}),
 )
 ##/mnt/sda2h/tools/git1/chengl6500/mysite/
