@@ -1,0 +1,57 @@
+id: 3-5.0.r5/0
+type: dir
+count: 0
+cpath: /trunk
+copyroot: 0 /
+
+id: 0-5.0.r5/63
+type: dir
+count: 0
+cpath: /branches
+copyroot: 0 /
+
+id: 2-5.0.r5/130
+type: dir
+count: 0
+cpath: /tags
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 15
+dir 0-5.0.r5/63
+K 7
+perl.pl
+V 17
+file 0-3.0.r3/780
+K 4
+tags
+V 16
+dir 2-5.0.r5/130
+K 6
+test.c
+V 17
+file 0-1.0.r4/330
+K 5
+trunk
+V 14
+dir 3-5.0.r5/0
+END
+ENDREP
+id: 0.0.r5/375
+type: dir
+pred: 0.0.r4/601
+count: 5
+text: 5 194 168 168 984964456bdca5e449bfa7f7d581eaa7
+cpath: /
+copyroot: 0 /
+
+_3.0.t4-5 add-dir false false /trunk
+
+_0.0.t4-5 add-dir false false /branches
+
+_2.0.t4-5 add-dir false false /tags
+
+
+375 503
