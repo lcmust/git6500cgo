@@ -3,7 +3,7 @@
 from django.core.mail import send_mail
 from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
-from django.template import Context,RequestContext
+from django.template import Context,RequestContext,Template
 from django.template.loader import get_template
 from polls.models import Book
 from django.contrib import auth
@@ -215,3 +215,11 @@ def register(request):
     })
     output = template.render(body)
     return HttpResponse(output)
+
+def django_user_all(request):
+    from django.contrib.auth.models import User
+    entry_list = User.objects.all().values()[0]
+    html = "<html><head></head><body> {%for tmp in entry_list%} {{tmp}}  {%endfor%} </body></html>" 
+    t = Template(html)
+    c = Context(entry_list)
+    return t.render(c)
