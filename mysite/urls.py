@@ -44,9 +44,12 @@ urlpatterns = patterns('',
     url(r'logout/$', 'polls.views.logout'),
     url(r'register/$', 'polls.views.register'),
     url(r'user_all/$', 'polls.views.django_user_all'),
-    #css
+    #django-css
     url(r'^css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/css/'}),
-    #jpg|png
+    #django-jpg|png
     url(r'^img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/css/'}),
+    #myapp-css
+    url(r'^static/css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/css/'}),
+    #myapp-jpg|png
+    url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/img/'}),
 )
-##/mnt/sda2h/tools/git1/chengl6500/mysite/

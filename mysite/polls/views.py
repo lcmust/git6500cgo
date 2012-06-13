@@ -82,7 +82,7 @@ def home1(request):
     template = get_template('home1.html')
     now = datetime.datetime.now()
     user = username(request) 
-    body = Context({
+    body = RequestContext(request, {
       'username':user,
       'body1':user,
       'body2':now,
@@ -97,7 +97,7 @@ def search1(request):
       return HttpResponseRedirect('/login')
     template = get_template('search1.html')
     user = username(request) 
-    body = Context({
+    body = RequestContext(request, {
       'username':user,
       'body1':'body1_search1',
       'body2':'body2_search1',
