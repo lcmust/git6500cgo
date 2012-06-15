@@ -13,10 +13,10 @@ def greet(name='Stranger'):
 @get('/login')
 def login_form():
     return '''<form action="/login" method="POST">
-		name:<input name ="name" type="text" />
-		passwd:<input name ="password" type="password" />
-		<input type="submit" value="login" />
-	      </form>'''
+            name:<input name ="name" type="text" />
+            passwd:<input name ="password" type="password" />
+            <input type="submit" value="login" />
+            </form>'''
 
 @post('/login')
 def login_submit():
