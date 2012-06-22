@@ -88,6 +88,7 @@ def home1(request):
     now = datetime.datetime.now()
     user = username(request)
     body = RequestContext(request, {
+        'title':'home1',
         'username':user,
         'body1':user,
         'body2':now,
@@ -104,6 +105,7 @@ def search1(request):
     template = get_template('search1.html')
     user = username(request)
     body = RequestContext(request, {
+        'title':'search1',
         'username':user,
         'body1':'body1_search1',
         'body2':'body2_search1',
@@ -122,6 +124,7 @@ def result1(request):
         q = request.GET['q']
         books = Book.objects.filter(title__icontains=q)
         body = RequestContext(request, {
+            'title':'result1',
             'username':user,
             'books':books,
             'query':q,
@@ -129,6 +132,7 @@ def result1(request):
     else:
         template = get_template('result0.html')
         body = RequestContext(request, {
+            'title':'result1',
             'username':user,
             'books':None,
             'query':None,
@@ -143,6 +147,7 @@ def program1(request):
     user = username(request)
     template = get_template('program1.html')
     body = RequestContext(request, {
+        'title':'program1',
         'username':user,
         'body1':'body1_program1',
         'body2':'body2_program1',
@@ -156,6 +161,7 @@ def about1(request):
     tmp = request.META.items()
     tmp.sort()
     body = RequestContext(request, {
+        'title':'about1',
         'username':user,
         'body2':tmp,
     })
@@ -194,7 +200,8 @@ def contact(request):
 
 def thanks(request):
     template = get_template('thanks1.html')
-    body = Context({
+    body = RequestContext(request,{
+        'title':'thanks',
         'body1':'thanks for invit',
         'body2':'body2_program1',
     })
@@ -208,6 +215,7 @@ def login(request):
     to_where = request.GET.get('next', '')
     #return HttpResponse(to_where)
     body = RequestContext(request,{
+        'title':'login',
         'body1':'',
         'next':to_where,
     })
@@ -215,16 +223,17 @@ def login(request):
     return HttpResponse(output)
 
 def login_auth(request):
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    to_where = request.POST.get('next', '')
-    user = auth.authenticate(username=username, password=password)
+    UserName = request.POST.get('username', '')
+    PassWord = request.POST.get('password', '')
+    ToWhere = request.POST.get('next', 'home1')
+    AuthUser = auth.authenticate(username=UserName, password=PassWord)
     #to_where = request.META.get('HTTP_REFERER', 'home1')
-    if user is not None and user.is_active:
-        auth.login(request,user)
+    if AuthUser is not None and AuthUser.is_active:
+        auth.login(request,AuthUser)
         #return HttpResponse(to_where)
-        return HttpResponseRedirect(to_where)
+        return HttpResponseRedirect(ToWhere)
     else:
+        return HttpResponse('welcome %s' % (UserName))
         return HttpResponseRedirect("/thanks/")
 
 def logout(request):
@@ -233,7 +242,8 @@ def logout(request):
 
 def register(request):
     template = get_template('register.html')
-    body = Context({
+    body = RequestContext(request,{
+        'title':'register',
         'body1':'thanks for invit',
         'body2':'body2_program1',
     })

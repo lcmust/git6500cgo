@@ -1,6 +1,10 @@
 {# file:result1.html #}
 {% extends "base.html" %}
 
+{% block title %}
+    {{ title }}
+{% endblock %}
+
 {% block body1 %}
   {% if books %}
 <br/> <p> Found {{books|length}} book{{books|pluralize}}.</p>

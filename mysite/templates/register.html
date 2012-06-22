@@ -1,6 +1,11 @@
 {# filename:register.html #}
 {% extends "base.html" %}
 
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
 {% block body1 %}
  {% if form.errors %}
    <p class="error">sorry, that's not a valid username or password</p>

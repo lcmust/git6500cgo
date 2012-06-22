@@ -1,6 +1,11 @@
 {# filename:about1.html #}
 {% extends "base.html" %}
 
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
 {% block body1 %}
    {% if body1 %}
 	<br/> <p> {{body1}} of django.mysite </p>
