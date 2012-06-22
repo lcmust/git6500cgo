@@ -3,7 +3,7 @@
 
 {% block body1 %}
   {% if books %}
-<br/> <p> Found {{books|length}} book{{books|pluralize}}.</p> 
+<br/> <p> Found {{books|length}} book{{books|pluralize}}.</p>
       <ul>
          {% for book in books %}
          <li> {{book.title}}</li>
@@ -17,7 +17,7 @@
 
 {% block body2 %}
   {% if errors %}
-       <p style="color:red;"> 
+       <p style="color:red;">
 	Please submit a search term 20 characters or shorter.
 	<ul style="color:red;">
 	{% for error in errors %}
@@ -25,9 +25,9 @@
         {% endfor %}
         </ul>
        </p>
-  {% endif %} 
+  {% endif %}
 
-<br/> <p> {{body2 }} </p> 
+<br/> <p> {{body2 }} </p>
 <br/>
 {% endblock %}
 
