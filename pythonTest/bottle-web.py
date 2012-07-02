@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from bottle import route, run, get, post, request
+from bottle import route, run, get, post, request, debug, template
+import sqlite3
 
 @route('/hello')
 @route('/hello/')
@@ -28,4 +29,17 @@ def login_submit():
     else:
         return "<p>Login failed</p>"
 
-run(host='localhost',port=8080)
+@route('/todo')
+@route('/todo/')
+def todo_list():
+    conn = sqlite3.connect('todo.db')
+    c = conn.cursor()
+    ###c.execute("select id, task from todo where status like '1'")
+    c.execute("select * from todo where status like '1'")
+    result = c.fetchall()
+    c.close()
+    output = template('make_table', rows=result)
+    return output
+
+debug(True)
+run(reloader=True, host='192.168.1.219', port=8080)

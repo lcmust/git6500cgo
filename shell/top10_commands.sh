@@ -1,7 +1,7 @@
 #!/bin/bash
 printf "command\t count\n";
 if [ -z "$1" ]
-then 
+then
 	arg1=~
 else
 	arg1="$1"

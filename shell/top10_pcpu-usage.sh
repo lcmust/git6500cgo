@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -z "$1" ] ;then 
+if [ -z "$1" ] ;then
 	SECS=360
 	echo "SECS=$SECS, waitting 10 minutes"
 elif [ "-h" == "$1" ] ; then
@@ -22,7 +22,7 @@ do
 	ps -eo comm,pcpu | tail -n +2 >> /tmp/cpu_usage.$$
 	echo -n ".$i"
 	sleep $UNIT_TIME
-done 
+done
 echo
 echo CPU eaters:
 cat /tmp/cpu_usage.$$ |\

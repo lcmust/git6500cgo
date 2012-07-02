@@ -23,7 +23,7 @@ class Person:
     def greet(self):
         print "Hello, world! I'm %s (%s)." %(self.name, self)
 
-    
+
 foo = Person()
 boo = Person()
 foo.setName("foo")
