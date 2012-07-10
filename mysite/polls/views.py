@@ -5,7 +5,7 @@ from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import Context,RequestContext,Template
 from django.template.loader import get_template
-from polls.models import Book
+from mysite.polls.models import Book
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import datetime
@@ -23,26 +23,13 @@ def env(request):
     html.append("</table>")
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
-def list_client_url(request):
-    try:
-        client_url_all = request.META.items()
-    except  KeyError:
-        client_url_all = 'unknown'
-    client_url_all.sort()
-    html = []
-    for k,v in client_url_all:
-        html.append('<tr><td>%s</td><td>%s</td></tr>' %(k,v))
-    return client_url_all
-
-def time(request):
-    now = datetime.datetime.now()
-    html = "<html><body> You're at the poll index. It's now %s </body></html>" %now
-    return HttpResponse(html)
-
 def current_datetime(request):
     now_time = datetime.datetime.now()
-    furture_time = now_time + datetime.timedelta(hours=6)
-    return render_to_response('current_datetime.html', {'current_date':now_time,'furture':furture_time})
+    template = get_template('current_datetime.html')
+    content = RequestContext(request, {
+        'current_date':now_time,
+    })
+    return HttpResponse(template.render(content))
 
 def hours_ahead(request, offset):
     try:
@@ -51,7 +38,13 @@ def hours_ahead(request, offset):
         raise Http404()
     now_time = datetime.datetime.now()
     dt = now_time + datetime.timedelta(hours=offset)
-    return render_to_response('hours_ahead.html', {'hour_offset':offset,'now':now_time, 'next_time':dt})
+    template = get_template('hours_ahead.html')
+    content = RequestContext(request, {
+        'hour_offset':offset,
+        'now':now_time,
+        'next_time':dt,
+    })
+    return HttpResponse(template.render(content))
 
 def now_furture(request, offset):
     try:
@@ -61,13 +54,18 @@ def now_furture(request, offset):
     now_time = datetime.datetime.now()
     furture_time = now_time + datetime.timedelta(hours=offset)
     t = get_template('now_furture.html')
-    content = Context({'current_datetime':now_time,'now':now_time,'furture':furture_time})
+    content = RequestContext(request,{
+        'current_date':now_time,
+        'now':now_time,
+        'offset':int(offset),
+        'furture':furture_time,
+    })
     html = t.render(content)
     return HttpResponse(html)
 
 def main_page(request):
     template = get_template('main_page.html')
-    variables = Context({
+    variables = RequestContext(request,{
         'head_title': 'Django Bookmarks',
         'page_title': 'Welcome to Django Bookmarks',
         'page_body': 'Where you can store and share bookmarks!'
@@ -252,8 +250,9 @@ def register(request):
 
 def django_user_all(request):
     from django.contrib.auth.models import User
-    entry_list = User.objects.all().values()[0]
-    html = "<html><head></head><body> {%for tmp in entry_list%} {{tmp}}  {%endfor%} </body></html>"
-    t = Template(html)
-    c = Context(entry_list)
-    return t.render(c)
+    entry_list = User.objects.all()
+    html = []
+    for tmp in entry_list:
+        html.append('<tr><td>user:</td><td>%s</td></tr>' % tmp )
+    output = ('<html><head><title>user_all</title></head><body><table>%s</table></body></html>' % '\n'.join(html))
+    return HttpResponse(output)

@@ -1,13 +1,9 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.views.generic import list_detail
-from polls.models import Publisher
+from mysite.polls.models import Publisher
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
-###
 from django.contrib import admin
-###
 admin.autodiscover()
 
 publisher_info = {
@@ -16,7 +12,7 @@ publisher_info = {
 #    'template_object_name':'publisher',
 }
 
-urlpatterns = patterns('',
+urlpatterns = patterns('mysite.polls.views',
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),
@@ -27,29 +23,29 @@ urlpatterns = patterns('',
     url(r'publishers/$', list_detail.object_list, publisher_info),
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'polls.views.env'),
-    url(r'^time/$', 'polls.views.current_datetime'),
-    url(r'^time/(\d{1,2})/$', 'polls.views.hours_ahead'),
-    url(r'^now_furture/(\d{1,2})/$', 'polls.views.now_furture'),
-    url(r'^main_page/$', 'polls.views.main_page'),
-    url(r'^home1/$', 'polls.views.home1'),
-    url(r'^search1/$', 'polls.views.search1'),
-    url(r'^result1/$', 'polls.views.result1'),
-    url(r'^program1/$', 'polls.views.program1'),
-    url(r'^about1/$', 'polls.views.about1'),
-    url(r'^contact/$', 'polls.views.contact'),
-    url(r'thanks/$', 'polls.views.thanks'),
-    url(r'login/$', 'polls.views.login'),
-    url(r'login_auth/$', 'polls.views.login_auth'),
-    url(r'logout/$', 'polls.views.logout'),
-    url(r'register/$', 'polls.views.register'),
-    url(r'user_all/$', 'polls.views.django_user_all'),
+    url(r'^$', 'env'),
+    url(r'^time/$', 'current_datetime'),
+    url(r'^time/(\d{1,2})/$', 'hours_ahead'),
+    url(r'^now_furture/(\d{1,2})/$', 'now_furture'),
+    url(r'^main_page/$', 'main_page'),
+    url(r'^home1/$', 'home1'),
+    url(r'^search1/$', 'search1'),
+    url(r'^result1/$', 'result1'),
+    url(r'^program1/$', 'program1'),
+    url(r'^about1/$', 'about1'),
+    url(r'^contact/$', 'contact'),
+    url(r'^thanks/$', 'thanks'),
+    url(r'^login/$', 'login'),
+    url(r'^login_auth/$', 'login_auth'),
+    url(r'^logout/$', 'logout'),
+    url(r'^register/$', 'register'),
+    url(r'^user_all/$', 'django_user_all'),
     #django-css
-    url(r'^css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/css/'}),
+    #url(r'^css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/css/'}),
     #django-jpg|png
-    url(r'^img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/css/'}),
+    #url(r'^img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/css/'}),
     #myapp-css
-    url(r'^static/css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/css/'}),
+    url(r'^css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/css/'}),
     #myapp-jpg|png
-    url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/img/'}),
+    #url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/img/'}),
 )

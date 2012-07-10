@@ -4,11 +4,15 @@
 now_furture
 {% endblock %}
 
-{% block content %}
-<p> {{current_time}} </p>
+{% block body1 %}
+<p> {{current_date}} </p>
 
 {% if now %}
    <p> It's time is {{ now }}. </p>
+{% endif %}
+
+{% if offset %}
+   <p> Offset is {{ offset }} </p>
 {% endif %}
 
 {% if furture %}

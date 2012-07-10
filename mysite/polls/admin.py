@@ -1,4 +1,4 @@
-from polls.models import Publisher, Author, Book
+from mysite.polls.models import Publisher, Author, Book
 from django.contrib import admin
 
 admin.site.register(Publisher)
