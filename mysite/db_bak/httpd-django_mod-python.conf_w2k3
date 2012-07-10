@@ -1,0 +1,37 @@
+LoadModule python_module modules/mod_python.so
+
+Listen *:8008
+NameVirtualHost *:8008
+<VirtualHost *:8008>
+    <Location "/">
+        SetHandler python-program
+        PythonHandler django.core.handlers.modpython
+        SetEnv DJANGO_SETTINGS_MODULE settings
+        SetEnv PYTHON_EGG_CACHE D:/Temp
+        PythonPath "['D:/wind1/mysite','D:/wind1/'] + sys.path"
+        PythonInterpreter mysite
+        PythonDebug On
+    </Location>
+
+    <LocationMatch "\.(css|js|jpeg|jpg|gif|png|ico)$">
+        SetHandler None
+    </LocationMatch>
+
+    AliasMatch  ^/static-django/admin/(.*)  "C:/Python27/Lib/site-packages/django/contrib/admin/media/$1"
+    <Directory "C:/Python27/Lib/site-packages/django/contrib/admin/media/">
+        Options FollowSymLinks
+        AllowOverride None
+        Order deny,allow
+        Allow from all
+    </Directory>
+
+    AliasMatch ^/static/(.*) "D:/wind1/mysite/templates/static/$1"
+    <Directory D:/wind1/mysite/>
+        ###Options All
+        ###AllowOverride All
+        ###Require all granted
+	###apache-2.4_diff
+        Order deny,allow
+        Allow from all
+    </Directory>
+</VirtualHost>

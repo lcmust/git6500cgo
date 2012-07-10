@@ -1,0 +1,23 @@
+LoadModule php5_module "c:/php/php5apache2_2.dll"
+
+Listen *:8009
+NameVirtualHost *:8009
+<VirtualHost *:8009>
+
+    #php
+    AddType application/x-httpd-php .php
+    PHPIniDir "C:/php"
+    DocumentRoot "D:/documents/phpapp"
+    DirectoryIndex index.php
+
+    <Directory "D:/documents/phpapp">
+        Options FollowSymLinks
+        AllowOverride None
+        Order deny,allow
+        Allow from all
+    </Directory>
+
+    <Location /status>
+        SetHandler server-status
+    </Location>
+</VirtualHost>
