@@ -47,8 +47,12 @@ urlpatterns += patterns('mysite.polls.views',
 )
 
 urlpatterns += patterns('',
-    #myapp-css
+    ###myapp-css
     url(r'^static/css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/css/'}),
-    #myapp-jpg|png|pig|...
+    ###myapp-css_win
+    #url(r'^static/css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'D:/wind1/mysite/templates/static/css/'}),
+    ###myapp-jpg|png|pig|...
     url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/img/'}),
+    ###myapp-jpg|png|pig|..._win
+    #url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'D:/wind1/mysite/templates/static/img/'}),
 )

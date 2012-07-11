@@ -1,8 +1,10 @@
 ###mod_wsgi
 LoadModule wsgi_module  modules/mod_wsgi-win32-ap22py27-3.3.so
+#LoadModule wsgi_module  modules/mod_wsgi.so
 
 Listen 8006
 NameVirtualHost *:8006
+#NameVirtualHost *:8006 """"apache-2.4版本不需要此行配置""""
 
 <VirtualHost  *:8006>
     ServerName 192.168.134.129
@@ -41,5 +43,6 @@ NameVirtualHost *:8006
     </Directory>
 
     AliasMatch ^/static/(.*) "D:/wind1/mysite/templates/static/$1"
+    ###AliasMatch ^/static/(.*) "/home/love/cl-dep/mysite/templates/static/$1"
 
 </virtualHost>

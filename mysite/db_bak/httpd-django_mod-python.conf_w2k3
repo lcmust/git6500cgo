@@ -2,6 +2,8 @@ LoadModule python_module modules/mod_python.so
 
 Listen *:8008
 NameVirtualHost *:8008
+#NameVirtualHost *:8006 """"apache-2.4版本不需要此行配置""""
+
 <VirtualHost *:8008>
     <Location "/">
         SetHandler python-program
