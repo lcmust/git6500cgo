@@ -2,7 +2,7 @@ LoadModule php5_module "c:/php/php5apache2_2.dll"
 
 Listen *:8009
 NameVirtualHost *:8009
-#NameVirtualHost *:8006 """"apache-2.4版本不需要此行配置""""
+#NameVirtualHost *:8009 """"apache-2.4版本不需要此行配置""""
 
 <VirtualHost *:8009>
 
