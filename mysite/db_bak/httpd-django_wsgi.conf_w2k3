@@ -4,10 +4,11 @@ LoadModule wsgi_module  modules/mod_wsgi-win32-ap22py27-3.3.so
 
 Listen 8006
 NameVirtualHost *:8006
-#NameVirtualHost *:8006 """"apache-2.4版本不需要此行配置""""
+#NameVirtualHost *:8006 	###apache-2.4_diff
 
 <VirtualHost  *:8006>
     ServerName 192.168.134.129
+    CustomLog "logs/access_8006.log" combined
     <LocationMatch "^/static-django/">
         SetHandler None
     </LocationMatch>

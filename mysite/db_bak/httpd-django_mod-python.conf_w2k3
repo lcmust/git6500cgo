@@ -2,9 +2,12 @@ LoadModule python_module modules/mod_python.so
 
 Listen *:8008
 NameVirtualHost *:8008
-#NameVirtualHost *:8008 """"apache-2.4版本不需要此行配置""""
+#NameVirtualHost *:8008 	###apache-2.4_diff
 
 <VirtualHost *:8008>
+    ServerName 192.168.1.129
+    CustomLog "logs/access_8008.log" combined
+	
     <Location "/">
         SetHandler python-program
         PythonHandler django.core.handlers.modpython

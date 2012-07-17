@@ -2,10 +2,11 @@ LoadModule php5_module "c:/php/php5apache2_2.dll"
 
 Listen *:8009
 NameVirtualHost *:8009
-#NameVirtualHost *:8009 """"apache-2.4版本不需要此行配置""""
+#NameVirtualHost *:8009 ###apache-2.4_diff
 
 <VirtualHost *:8009>
-
+    ServerName 192.168.1.129
+    CustomLog "logs/access_8009.log" combined
     #php
     AddType application/x-httpd-php .php
     PHPIniDir "C:/php"
@@ -21,10 +22,11 @@ NameVirtualHost *:8009
 
     <Location /server-status>
         SetHandler server-status
-        Require host .example.com
+        ###Require host .example.com
         ###Require ip 127.0.0.1
         ###apache-2.4_diff
         Order deny,allow
+        Deny from all
         Allow from 127.0.0.1
     </Location>
 </VirtualHost>
