@@ -13,7 +13,7 @@
  {% if next %}
     <p>{{ next }}</p>
  {% endif %}
- <form action="/login_auth/" method="post">{% csrf_token %}
+ <form action="/login_auth/" method="post"  onSubmit="return js_try()" >{% csrf_token %}
    <label for="username">User name:</label>
    <input type="text" name="username" value="" id="username">
    <br/>

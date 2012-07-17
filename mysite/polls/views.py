@@ -82,12 +82,18 @@ def username(request):
     return user
 
 def home1(request):
+    from django.contrib.auth.models import User
     template = get_template('home1.html')
     now = datetime.datetime.now()
     user = username(request)
+    if user != 'guest' and user:
+        user_id = User.objects.get(username=user).id
+    else:
+        user_id = None
     body = RequestContext(request, {
         'title':'home1',
         'username':user,
+        'user_id':user_id or None,
         'body1':user,
         'body2':now,
     })

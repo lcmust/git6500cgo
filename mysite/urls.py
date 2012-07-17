@@ -55,4 +55,8 @@ urlpatterns += patterns('',
     url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/img/'}),
     ###myapp-jpg|png|pig|..._win
     #url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'D:/wind1/mysite/templates/static/img/'}),
+    ###myapp-js
+    url(r'^static/js/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/js/'}),
+    ###myapp-js_win
+    #url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'D:/wind1/mysite/templates/static/js/'}),
 )

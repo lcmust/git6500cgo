@@ -26,7 +26,7 @@ a.main_link:active,a.main_link:visited,a.main_link:link{
         display: block;
         width: 100%;
         color: #FFFFFF;
-        line-height: 50px;
+        line-height: 20px;
 }
 
 a.main_link:hover{
@@ -50,7 +50,7 @@ a.title_link:hover{
 }
 
 div.navigation {
-        height: 50px;
+        height: 20px;
         vertical-align: middle;
         text-align: center;
 }
