@@ -1,0 +1,38 @@
+LoadModule wsgi_module modules/mod_wsgi.so
+
+Listen 8006
+
+<VirtualHost  *:8006>
+    ServerName db6sda8_django
+    CustomLog "logs/web_8006_access.log" common
+    <LocationMatch "^/static-django/">
+        SetHandler None
+    </LocationMatch>
+    <LocationMatch "^/static/">
+        SetHandler None
+    </LocationMatch>
+    <LocationMatch  "\.(jpg|gif|png|txt|ico|pdf|css|jpeg)$">
+        SetHandler None
+    </LocationMatch>
+    AliasMatch ^/static-django/admin/(.*) "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/$1"
+    <Directory "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/">
+        AllowOverride None
+        Options None
+        Require all granted
+    </Directory>
+    AliasMatch ^/static/(.*)  "/home/love/cl-dep/mysite/templates/static/$1"
+    <Directory "/home/love/cl-dep/mysite/templates/$1">
+        AllowOverride None
+        Options None
+        Require all granted
+    </Directory>
+
+    WSGIScriptAlias /      /home/love/cl-dep/mysite/django.wsgi
+    <Directory /home/love/cl-dep/mysite/>
+        WSGIApplicationGroup %{GLOBAL}
+        Options All
+        AllowOverride All
+        Require all granted
+    </Directory>
+</virtualHost>
+

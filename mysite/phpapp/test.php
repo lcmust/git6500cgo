@@ -1,13 +1,18 @@
 <?php
 require("class_person.php");
+    session_start();
     $personA = new Person;
     $personA->setName("chengliu");
     if ($personA->getName()) {
         echo "personA's name:".$personA->getName();
+		echo "<br />";
     }
-    session_start();
+	foreach ($personA as $key => $value) {
+		print "pubilc:  personA[$key] = $value\n";
+	}
     $sid = session_id();
     $sessionVars = session_encode();
+    echo "<br/>";
     echo "sid:",$sid;
     echo "<br/>";
     echo "username:",$_SESSION['username'];
@@ -62,5 +67,10 @@ require("class_person.php");
     increment($i1);
     echo "<br/>";
     echo $i1;
+
+	$obj = new HelloWorldDelegator();
+	print $obj->display(3);
+
+
     include "client-info.php";
 ?>

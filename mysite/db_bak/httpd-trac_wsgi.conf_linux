@@ -1,0 +1,25 @@
+Listen 8008
+
+<VirtualHost  *:8008>
+    ServerName db6sda8_trac
+    CustomLog "logs/web_8008_access.log" common
+    WSGIScriptAlias /trac   /mnt/sda2h/tools/trac-project/trac-project.wsgi
+    WSGIScriptAlias /myapp  /mnt/sda2h/tools/trac-project/myapp.wsgi
+    <Directory /mnt/sda2h/tools/trac-project/>
+        WSGIApplicationGroup %{GLOBAL}
+        Options All
+        AllowOverride All
+        Require all granted
+    #    AuthType Basic
+    #    AuthName "trac"
+    #    AuthUserFile /mnt/sda2h/tools/trac-project/htpasswd-nginx-trac
+    #    Require valid-user
+    </Directory>
+
+    <LocationMatch "/trac/[^/]+/login">
+        AuthType Basic
+        AuthName "TRAC_login"
+        AuthUserFile /mnt/sda2h/tools/trac-project/htpasswd-nginx-trac
+        Require valid-user
+    </LocationMatch>
+</virtualHost>
