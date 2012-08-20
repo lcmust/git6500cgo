@@ -35,12 +35,12 @@ require("class_person.php");
     $query = "select user,host,password from user where
              username='$username'";
     mysql_query($query, $result);
-    /*if (mysql_num_rows($result) == 1)
+    //if (mysql_num_rows($result) == 1)
     {
         $_SESSION['username'] = mysql_result($result, 0, "username");
-        echo "Your are successfully logged in.";
+        echo $_SESSION['username'], "Your are successfully logged in.";
     }
-    */
+    /* */
     echo "<br/>";
     echo "name:",$result;
     echo "<br/>";

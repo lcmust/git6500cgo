@@ -5,20 +5,28 @@ start_mysql()
   ###/mnt/sda2h/tools/mysql/
   if [  "$(pidof mysqld)" ]
   then
-      echo "mysql !is! already running!!!"
+      echo -e "\tmysql !is! already running!!!"
       return 0
   fi
   /etc/init.d/mysqld start
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 stop_mysql()
 {
   ###/mnt/sda2h/tools/mysql/
   if [ ! "$(pidof mysqld)" ]
   then
-      echo "mysql -isnot- running!!!"
+      echo -e "\tmysql -isnot- running!!!"
       return 0
   fi
   /etc/init.d/mysqld stop
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 
 start_uwsgi()
@@ -26,20 +34,28 @@ start_uwsgi()
   ###/home/love/cl-dep/mysite/django.wsgi
   if [  "$(pidof uwsgi)" ]
   then
-      echo "uwsgi !is! already running!!!"
+      echo -e "\tuwsgi !is! already running!!!"
       return 0
   fi
   uwsgi  --wsgi-file /home/love/cl-dep/mysite/django.wsgi -s 127.0.0.1:9090 -d /tmp/django.uwsgi.log
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 stop_uwsgi()
 {
   ###/home/love/cl-dep/mysite/django.wsgi
   if [ ! "$(pidof uwsgi)" ]
   then
-      echo "uwsgi -isnot- running!!!"
+      echo -e "\tuwsgi -isnot- running!!!"
       return 0
   fi
   kill -9 `pidof uwsgi`
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 
 start_php4fpm()
@@ -47,20 +63,28 @@ start_php4fpm()
   ###/mnt/sda2h/tools/php/php-fpm.conf
   if [  "$(pidof php-fpm)" ]
   then
-      echo "php-fpm !is! already running!!!"
+      echo -e "\tphp-fpm !is! already running!!!"
       return 0
   fi
   /mnt/sda2h/tools/php/sbin/php-fpm
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 stop_php4fpm()
 {
   ###/mnt/sda2h/tools/php/php-fpm.conf
   if [ ! "$(pidof php-fpm)" ]
   then
-      echo "php-fpm -isnot- running!!!"
+      echo -e "\tphp-fpm -isnot- running!!!"
       return 0
   fi
   kill -9 `pidof php-fpm`
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 
 start_apache()
@@ -68,20 +92,28 @@ start_apache()
   ###/mnt/sda2h/tools/apache/
   if [  "$(pidof httpd)" ]
   then
-      echo "apache !is! already running!!!"
+      echo -e "\tapache !is! already running!!!"
       return 0
   fi
   /mnt/sda2h/tools/apache/bin/apachectl -k start
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 stop_apache()
 {
   ###/mnt/sda2h/tools/apache/
   if [ !  "$(pidof httpd)" ]
   then
-      echo "apache -isnot- running!!!"
+      echo -e "\tapache -isnot- running!!!"
       return 0
   fi
   /mnt/sda2h/tools/apache/bin/apachectl -k stop
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 
 start_nginx()
@@ -89,20 +121,28 @@ start_nginx()
   ###/mnt/sda2h/tools/nginx/
   if [  "$(pidof nginx)" ]
   then
-      echo "nginx !is! already running!!!"
+      echo -e "\tnginx !is! already running!!!"
       return 0
   fi
   /mnt/sda2h/tools/nginx/sbin/nginx
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 stop_nginx()
 {
   ###/mnt/sda2h/tools/nginx/
   if [ !  "$(pidof nginx)" ]
   then
-      echo "nginx -isnot- running!!!"
+      echo -e "\tnginx -isnot- running!!!"
       return 0
   fi
   kill -9 `pidof nginx`
+  if [ "$?" == 0 ]
+  then
+      echo -e "\tdone!"
+  fi
 }
 
 status_12345()
@@ -155,36 +195,36 @@ do
        return 0
        ;;
     "mysql")
-       echo "start mysql..."
+       echo "start ${arg_loop}..."
        start_mysql
        ;;
     "uwsgi")
-       echo "start uwsgi..."
+       echo "start ${arg_loop}..."
        start_uwsgi
        ;;
     "php-fpm")
-       echo "start php-fpm..."
+       echo "start ${arg_loop}..."
        start_php4fpm
        ;;
     "apache")
-       echo "start apache..."
+       echo "start ${arg_loop}..."
        start_apache
        ;;
     "nginx")
-       echo "start nginx..."
+       echo "start ${arg_loop}..."
        start_nginx
        ;;
     *)
-       echo "not start anything!!!"
-       exit -1
+       echo -e "\tnot start ${arg_loop}!!!!"
        ;;
   esac
 done
+exit 0
 }
 
 stop_12345()
 {
-echo "stop_12345()"
+#echo "stop_12345()
 for arg_loop in "$@"
 do
   case "${arg_loop}" in
@@ -222,11 +262,11 @@ do
        stop_mysql
        ;;
     *)
-       echo "not stop anything!!!"
-       exit -1
+       echo -e  "\tnot stop anything!!!"
        ;;
   esac
 done
+exit 0
 }
 
 print_help()

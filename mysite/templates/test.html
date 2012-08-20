@@ -1,0 +1,84 @@
+<!-- filename: test.html -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <title>test jQuery</title>
+  <link href="/static/css/test-css.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js">
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#selected-plays > li').addClass('horizontal');
+      //$('tr:odd').addClass('form_odd');
+      $('tr:nth-child(even)').addClass('form_odd');
+    });
+    function validate(form) {
+		if(test_form.username.value.length < 4) {
+			alert("afasfaf");
+			test_form.username.value = "";
+			test_form.username.focus();
+			return false;
+		}
+		return true;
+	}
+  </script>
+</head>
+<body>
+<ul id="selected-plays">
+  <li >Comedies
+    <ul>
+      <li><a href="/asyoulikeit/">As You Like It</a></li>
+      <li>All's Well That Ends Well</li>
+      <li>A Midsummer Night's Dream</li>
+      <li>Twelfth Night</li>
+    </ul>
+  </li>
+  <li >Tragedies
+    <ul>
+      <li><a href="hamlet.pdf">Hamlet</a></li>
+      <li>Macbeth</li>
+      <li>Romeo and Juliet</li>
+    </ul>
+  </li>
+  <li>Histories
+    <ul>
+      <li>Henry IV (<a href="mailto:henryiv@king.co.uk">email</a>)
+        <ul>
+          <li>Part I</li>
+          <li>Part II</li>
+        </ul>
+      <li><a href="http://www.shakespeare.co.uk/henryv.htm">Henry V</a></li>
+      <li>Richard II</li>
+    </ul>
+  </li>
+</ul>
+<table border=1>
+  <tr><td>name</td><td>liucheng</td></tr>
+  <tr><td>name1</td><td>liuchen</td></tr>
+  <tr><td>name2</td><td>liuche</td></tr>
+  <tr><td>name3</td><td>liuch</td></tr>
+  <tr><td>nameX</td><td>liuch</td></tr>
+</table>
+<br />
+<table border=1>
+  <tr><td>name4</td><td>liucheng</td></tr>
+  <tr><td>name5</td><td>liuchen</td></tr>
+  <tr><td>name6</td><td>liuche</td></tr>
+  <tr><td>name7</td><td>liuch</td></tr>
+</table>
+<form name="test_form" action="" method="post" onsubmit="return validate(this);"> {% csrf_token %}
+<label for="username">User name:</label>
+<input type="text" name="username" value="" id="username2" />
+<br />
+<br />
+<label for="password">Password:</label>
+<input type="password" name="password" value="" id="password2" />
+<br/>
+<br/>
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{next|escape}}" />
+</form>
+</body>
+</html>

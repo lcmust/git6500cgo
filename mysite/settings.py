@@ -128,7 +128,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.request"
-        )
+)
 
 
 INSTALLED_APPS = (
@@ -168,7 +168,7 @@ LOGGING = {
     }
 }
 
-CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-#CACHE_BACKEND = 'dummy:///'
-CACHE_MIDDLEWARE_SECONDS = 300
-CACHE_MIDDLEWARE_KEY_PREFIX = ""
+#CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+CACHE_BACKEND = 'dummy:///'
+#CACHE_MIDDLEWARE_SECONDS = 300
+#CACHE_MIDDLEWARE_KEY_PREFIX = ""

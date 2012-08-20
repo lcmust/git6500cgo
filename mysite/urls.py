@@ -44,6 +44,7 @@ urlpatterns += patterns('mysite.polls.views',
     url(r'^logout/$', 'logout'),
     url(r'^register/$', 'register'),
     url(r'^user_all/$', 'django_user_all'),
+    url(r'^test/$', 'test'),
 )
 
 urlpatterns += patterns('',

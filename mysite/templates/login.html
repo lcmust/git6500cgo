@@ -13,17 +13,18 @@
  {% if next %}
     <p>{{ next }}</p>
  {% endif %}
- <form action="/login_auth/" method="post"  onSubmit="return js_try()" >{% csrf_token %}
+ <form name="form_login" action="" method="post" onsubmit="return validate_login(this);">{% csrf_token %}
+{#  onsubmit="return validate_login(this);" >  {% csrf_token %} #}
    <label for="username">User name:</label>
-   <input type="text" name="username" value="" id="username">
-   <br/>
-   <br/>
+   <input type="text" name="username" value="" id="username" />
+   <br />
+   <br />
    <label for="password">Password:</label>
-   <input type="password" name="password" value="" id="password">
+   <input type="password" name="password" value="" id="password" />
    <br/>
    <br/>
-   <input type="submit" value="login"/>
-   <input type="hidden" name="next" value="{{next|escape}}"/>
+   <input type="submit" value="login" />
+   <input type="hidden" name="next" value="{{next|escape}}" />
  </form>
 
 {% endblock %}

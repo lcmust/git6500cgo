@@ -23,6 +23,12 @@ def env(request):
     html.append("</table>")
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
+def test(request):
+	template = get_template('test.html')
+	content = RequestContext(request, {
+		})
+	return HttpResponse(template.render(content))
+
 def current_datetime(request):
     now_time = datetime.datetime.now()
     template = get_template('current_datetime.html')
