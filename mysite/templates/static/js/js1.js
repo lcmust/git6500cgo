@@ -11,12 +11,14 @@ function validate_login(form) {
 		returnValue = false;
 		alert("Your username must be at least \n4 characters long.\n Please try again.");
 		form_login.username.focus();
+		return returnValue;
 	}
-	if (password.length < 6) {
+	if (password.length < 5) {
 		returnValue = false;
 		alert("Your password must be at least \n6 characters long.\n Please try again.");
 		form_login.password.value = "";
 		form_login.password.focus();
+		return returnValue;
 	}
 	return returnValue;
 }

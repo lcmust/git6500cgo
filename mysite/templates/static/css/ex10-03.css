@@ -1,5 +1,7 @@
 h1 { color:red; font-size:35px; font-family:黑体 }
 p { background:yellow; color:green; font-size:25; font-family:宋体 }
+p.error {color:red}
+.error { color:red; font-size:35; }
 body { background:#aaccac; color:green }
 
 #logo1 { background:white; color:green }
@@ -54,4 +56,4 @@ textarea:focus {
 tr {
 	#background-color:#aaccac; }
 .form_odd {
-	background-color:#ffdddd; }
+	background-color:#ddeedd; }

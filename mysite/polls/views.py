@@ -24,10 +24,10 @@ def env(request):
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
 def test(request):
-	template = get_template('test.html')
-	content = RequestContext(request, {
-		})
-	return HttpResponse(template.render(content))
+    template = get_template('test.html')
+    content = RequestContext(request, {
+        })
+    return HttpResponse(template.render(content))
 
 def current_datetime(request):
     now_time = datetime.datetime.now()
@@ -243,8 +243,16 @@ def login_auth(request):
         #return HttpResponse(to_where)
         return HttpResponseRedirect(ToWhere)
     else:
-        return HttpResponse('welcome %s' % (UserName))
-        return HttpResponseRedirect("/thanks/")
+        template = get_template("login.html")
+        body = RequestContext(request,{
+            'title':'login',
+            'body1':'',
+			'login_error_again':'true',
+        })
+        output = template.render(body)
+        return HttpResponse(output)
+        #return HttpResponse('welcome %s' % (UserName))
+        #return HttpResponseRedirect("/thanks/")
 
 def logout(request):
     auth.logout(request)
