@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.views.generic import list_detail
-from mysite.polls.models import Publisher
+from dj131.polls.models import Publisher
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     #url(r'^static-django/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/css/'}),
 )
 
-urlpatterns += patterns('mysite.polls.views',
+urlpatterns += patterns('dj131.polls.views',
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),
@@ -49,15 +49,15 @@ urlpatterns += patterns('mysite.polls.views',
 
 urlpatterns += patterns('',
     ###myapp-css
-    url(r'^static/css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/css/'}),
+    url(r'^static/css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/chengl6500/mysite/templates/static/css/'}),
     ###myapp-css_win
     #url(r'^static/css/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'D:/wind1/mysite/templates/static/css/'}),
     ###myapp-jpg|png|pig|...
-    url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/img/'}),
+    url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/chengl6500/mysite/templates/static/img/'}),
     ###myapp-jpg|png|pig|..._win
     #url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'D:/wind1/mysite/templates/static/img/'}),
     ###myapp-js
-    url(r'^static/js/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/cl-dep/mysite/templates/static/js/'}),
+    url(r'^static/js/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'/home/love/chengl6500/mysite/templates/static/js/'}),
     ###myapp-js_win
     #url(r'^static/img/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'D:/wind1/mysite/templates/static/js/'}),
 )

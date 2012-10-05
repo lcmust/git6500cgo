@@ -5,7 +5,7 @@ from django.http import Http404, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import Context,RequestContext,Template
 from django.template.loader import get_template
-from mysite.polls.models import Book
+from dj131.polls.models import Book
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import datetime
@@ -247,7 +247,7 @@ def login_auth(request):
         body = RequestContext(request,{
             'title':'login',
             'body1':'',
-			'login_error_again':'true',
+            'login_error_again':'true',
         })
         output = template.render(body)
         return HttpResponse(output)

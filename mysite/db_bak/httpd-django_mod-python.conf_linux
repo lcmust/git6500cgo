@@ -1,0 +1,42 @@
+Listen *:8008
+NameVirtualHost *:8008
+#NameVirtualHost *:8008 	###apache-2.4_diff
+
+<VirtualHost *:8008>
+	ServerName 192.168.1.129
+	CustomLog "logs/access_8008.log" combined
+
+	<Location "/">
+		SetHandler python-program
+		PythonHandler django.core.handlers.modpython
+		SetEnv DJANGO_SETTINGS_MODULE settings
+		SetEnv PYTHON_EGG_CACHE /Temp
+		PythonOption django.root /home/love/chengl6500/mysite
+        PythonPath "['/home','/home/love/chengl6500/mysite'] + sys.path"
+		PythonInterpreter mysite
+		PythonAutoReload On
+		PythonDebug On
+	</Location>
+
+	<LocationMatch "\.(css|js|jpeg|jpg|gif|png|ico)$">
+		SetHandler None
+	</LocationMatch>
+
+	AliasMatch  ^/static-django/admin/(.*)  "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/$1"
+	<Directory "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/media/$1">
+		Options FollowSymLinks
+		AllowOverride None
+		Order deny,allow
+		Allow from all
+	</Directory>
+
+	AliasMatch ^/static/(.*) "/home/love/chengl6500/mysite/templates/static/$1"
+	<Directory D:/wind1/mysite/>
+		###Options All
+		###AllowOverride All
+		###Require all granted
+	###apache-2.4_diff
+		Order deny,allow
+		Allow from all
+	</Directory>
+</VirtualHost>

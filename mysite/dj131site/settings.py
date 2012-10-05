@@ -110,7 +110,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.cache.FetchFromCacheMiddleware', ###Last line for memcached
 )
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'dj131.urls'
 ###ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
@@ -143,7 +143,7 @@ INSTALLED_APPS = (
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-     'mysite.polls',
+     'dj131.polls',
 )
 
 # A sample logging configuration. The only tangible logging
