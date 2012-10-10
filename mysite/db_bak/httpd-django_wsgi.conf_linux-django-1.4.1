@@ -1,0 +1,28 @@
+LoadModule wsgi_module modules/mod_wsgi.so
+
+Listen 8006
+
+<VirtualHost  *:8006>
+    ServerName db6sda8
+    CustomLog "|/mnt/sda2h/tools/apache/bin/rotatelogs logs/web_8006_%Y%m%d_log 86400 480" combined
+
+    <LocationMatch "^/static/">
+        SetHandler None
+    </LocationMatch>
+    <LocationMatch  "\.(jpg|gif|png|txt|ico|pdf|css|jpeg)$">
+        SetHandler None
+    </LocationMatch>
+    AliasMatch ^/static/admin/(.*) "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/admin/$1"
+    <Directory "/usr/local/lib/python2.6/dist-packages/django/contrib/admin/static/admin/">
+		Options All
+		Require all granted
+	</Directory>
+
+    WSGIScriptAlias /      /home/love/chengl6500/mysite/dj141site/dj141site/wsgi.py
+    <Directory /home/love/chengl6500/mysite/dj141site/dj141site/>
+        WSGIApplicationGroup %{GLOBAL}
+        Options All
+        Require all granted
+    </Directory>
+
+</virtualHost>

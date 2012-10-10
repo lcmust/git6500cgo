@@ -14,7 +14,8 @@ framework.
 
 """
 import os
-
+import sys
+sys.path.append('/home/love/chengl6500/mysite/dj141site/')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dj141site.settings")
 
 # This application object is used by any WSGI server configured to use this
