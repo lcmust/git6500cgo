@@ -4,7 +4,7 @@ from flask import Flask, request, session, g, redirect, url_for,\
 	abort, render_template, flash
 
 #configuration
-DATABASE = './flaskr.db'
+DATABASE = './sqlite3.db'
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
@@ -17,8 +17,20 @@ app.config.from_envvar('FALSKR_SETTINGS', silent=True)
 def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
 
-def do_the_login():
-    pass
+def init_db():
+    with closeing(connect_db()) as db:
+        with app.open_resource('schema.sql') as f:
+            db.cursor().executescript(f.read())
+            db.commit()
+
+@app.before_request
+def before_request():
+    g.db = connect_db()
+
+@app.teardown_request
+def teardown_request(exception):
+    if hasattr(g,'db'):
+        g.db.close()
 
 def show_the_login_form():
     pass
@@ -30,9 +42,23 @@ def valid_login(username="None", password="None"):
     else:
         return None
 
+def login_the_user_in(username="None"):
+    navigation = (
+        {"href":"home", "caption":"home"}, {"href":"about", "caption":"about"}, {"href":"logout", "caption":"logout"})
+    return render_template("index.html", username=username, navigation=navigation)
+
+
 @app.route('/')
-def index():
-    return 'Index Page'
+def show_entries():
+    navigation = (
+        {"href":"home", "caption":"home"}, {"href":"about", "caption":"about"}, {"href":"login", "caption":"login"})
+    g.db = connect_db()
+    cur = g.db.execute('select title,text,create_datetime,modifi_datetime,auth from entries ')
+    entries = [dict(title=row[0],text=row[1],create_datetime=row[2],modifi_datetime=row[3],author=row[4]) for row in cur.fetchall()]
+    if entries:
+        return render_template('show_entries.html', entries=entries, navigation=navigation)
+    else:
+        return redirect(about)
 
 @app.route('/hello')
 @app.route('/hello/<name>')

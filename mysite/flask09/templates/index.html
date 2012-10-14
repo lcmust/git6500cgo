@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Index Flask{% endblock %}
+{% block head %}
+    {{ super() }}
+    <!--
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <style type="text/css" >
+      .important { color: #336699; }
+    </style>
+    //-->
+    <link href="/static/css/ex10-03.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+    Welcome, {% if username %}{{ username }}{% else %}guest{% endif %}
+
+   <form id="navigation" boder="1">
+     {% for item in navigation %}
+     <a href="{{ item.href }}">{{ item.caption }}</a>
+     {% endfor %}
+   </form>
+{% endblock %}

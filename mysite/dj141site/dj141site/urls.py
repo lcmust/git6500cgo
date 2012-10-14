@@ -18,4 +18,10 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/', include(admin.site.urls)),
+
+    ###my_url:
+    url(r'^$', include('app1.urls')),
+    url(r'^test/$', 'app1.views.hello'),
+    url(r'^a/$', 'app1.views.index'),
+
 )
