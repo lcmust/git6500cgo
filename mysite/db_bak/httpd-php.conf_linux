@@ -1,31 +1,17 @@
 Listen 8009
-Listen 8000
 
 <VirtualHost *:8009>
 	ServerName test.db6sda8.com
-        DirectoryIndex index.html index.php
+	CustomLog "|/mnt/sda2h/tools/apache/bin/rotatelogs logs/web_8009_%Y%m%d_log 86400 480" combined
+	DirectoryIndex index.html index.php
 
-	Alias /  /home/love/cl-dep/mysite/phpapp/
-	CustomLog "logs/web_8009_access.log" common
+	###at second line
+	Alias /  /home/love/chengl6500/mysite/phpapp/
 	<Location />
-	    AddHandler fcgid-script .php
-	    Options +ExecCGI
-	    FcgidWrapper /mnt/sda2h/tools/php/bin/php-wrapper  .php
-	    Require all granted
-	</Location>
-
-</VirtualHost>
-
-
-<VirtualHost *:8000>
-	ServerName test.db6sda8.com
-        DirectoryIndex index.html index.php
-	CustomLog "logs/web_8000_access.log" common
-	Alias /  /home/love/ci/
-	<Location />
-	    AddHandler fcgid-script .php
-	    Options +ExecCGI
-	    FcgidWrapper /mnt/sda2h/tools/php/bin/php-wrapper  .php
-	    Require all granted
+		AllowOverride all
+		AddHandler fcgid-script .php
+		Options +ExecCGI
+		FcgidWrapper /mnt/sda2h/tools/php/bin/php-wrapper  .php
+		Require all granted
 	</Location>
 </VirtualHost>
