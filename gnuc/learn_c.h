@@ -1,5 +1,5 @@
-/* filename: learn-c.h
- * project: learn-c
+/* filename: learn_c.h
+ * project: learn_c
  * date: 20120124-1240
  * author: chengl6500
  */
