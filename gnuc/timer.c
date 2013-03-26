@@ -29,7 +29,9 @@
  *  @note If both timer_start() and timer_stop() don't get called
  *        before any timer_delta_*() function, the results are unpredictable.
  */
-
+/* updater: chengl6500
+ * compile: gcc -g -Wall -shared -fPIC timer.c -o lib/libtimer.so
+ */
 #include <stdio.h>
 #include <sys/time.h>
 #include "timer.h"

@@ -1,6 +1,7 @@
 /* filename: learn_c.c
  * project: learn_c
  * compile method: gcc learn_c.c  -g -Wall  ./lib/lib_learn_c_mylib.o ./lib/lib_timer.o -o ./bin/learn_c
+ * run: LD_LIBRARY_PATH=./lib ./bin/learn_c < input_file
  * date: 20120124-1238
  * author: chengl6500
  */

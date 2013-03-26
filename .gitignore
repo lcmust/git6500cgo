@@ -20,14 +20,17 @@
 #.gitignore
 *.[ao]
 *~
+
+# database
 *.db
-*.so
-*.out
+
+# other
 *.ico
 *.png
 *.jpg
 *.jpeg
 
+# paths
 gnuc/bin/
 gnuc/lib/
 golang/bin/

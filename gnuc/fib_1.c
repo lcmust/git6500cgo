@@ -1,3 +1,8 @@
+/* filename: fib_1.c
+ * author: chengl6500
+ * compile: gcc -g -Wall fib_1.c -o ./bin/fib_1
+ * update:
+ */
 #include <stdio.h>
 
 int fib(int n)
