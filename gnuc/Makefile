@@ -16,7 +16,7 @@ all: test
 
 run: test
 	./test
-  
+
 rootrun: test
 	sudo ./test
 
@@ -29,8 +29,7 @@ raw_sockets.c: $(SOURDIR)/raw_sockets.c
 csum123.c: $(SOURDIR)/csum123.c
 	cp $< $@
 
-clean: 
+clean:
 	rm -f test
 
 .PHONY: run rootrun all clean
-
