@@ -5,11 +5,20 @@
  * date: 20120124-1238
  * author: chengl6500
  */
+#include <stdio.h>
+#include <stdlib.h>
 #include "learn_c.h"
 #include "timer.h"
+#include "getopt_long.h"
+#define DEBUG_LOG_ENABLE
+#include "debug_log.h"
 
-int main(void)
+
+int main(int argc, char *argv[])
 {
+	my_getopt_long(argc, argv);
+
+	DEBUG_PRINT("%s", "hello debug");
 	struct timert t1;
 	struct timert *t = &t1;
 	if (timer_start(t)) {

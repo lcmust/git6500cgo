@@ -40,9 +40,8 @@
 
 #include <sys/time.h>
 
-/** The timer structure */
-struct timert
-{
+/* The timer structure */
+struct timert {
 	struct timeval start; /**< The timer start point */
 	struct timeval end;   /**< The timer stop point */
 };
@@ -55,4 +54,4 @@ long timer_delta_seconds(struct timert* t);
 long timer_delta_minutes(struct timert* t);
 long timer_delta_hours(struct timert* t);
 
-#endif
+#endif // TIMER_H_DEFINED

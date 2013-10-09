@@ -17,7 +17,7 @@ int main()
 
   void (*something)() = add;
   something("aaa", 3, 4);
-  
+
   (*add1Ptr)("add1Ptr", 10, 2);
   (*add2Ptr)("add2Ptr", 10, 2);
   (*add3Ptr)("add3Ptr", 10, 2);
@@ -35,6 +35,6 @@ int main()
   printf("func of add's address is: %p\n", *add);
   printf("func of add's address is: %p\n", **add);
   printf("func of add's address is: %p\n", ***add);
-  
+
   exit(0);
 }

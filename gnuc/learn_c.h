@@ -3,9 +3,8 @@
  * date: 20120124-1240
  * author: chengl6500
  */
-#include <stdio.h>
-#include <stdlib.h>
-
+#ifndef LEARN_C_H
+#define LEARN_C_H
 struct name_st {
 	char *name;
 	int age;
@@ -14,3 +13,5 @@ struct name_st {
 };
 
 int mylib_func1(void);
+
+#endif  // LEARN_C_H
