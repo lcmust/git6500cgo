@@ -15,11 +15,13 @@
 *.exe
 *.out
 *.app
+*.bin
 #
 
 #.gitignore
 *.[ao]
 *~
+*.swp
 
 # database
 *.db

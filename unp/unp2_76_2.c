@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
                "OR argv[2](port) < 1024\n");
         exit(-1);
     }
-        
+
     listen(listenfd, 128);
 
     for (; ;) {

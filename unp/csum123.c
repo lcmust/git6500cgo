@@ -9,12 +9,12 @@
 #include <netinet/tcp.h>
 #include <stdint.h>
 
-uint16_t csum(uint16_t *ptr, uint32_t nbytes) 
+uint16_t csum(uint16_t *ptr, uint32_t nbytes)
 {
     register uint32_t sum;
     uint16_t oddbyte;
     register uint16_t answer;
- 
+
     sum=0;
     while (nbytes > 1) {
         sum += *ptr++;
@@ -25,11 +25,11 @@ uint16_t csum(uint16_t *ptr, uint32_t nbytes)
         *((uint8_t *)&oddbyte) = *(uint8_t *)ptr;
         sum += oddbyte;
     }
- 
+
     sum = (sum >> 16) + (sum & 0xffff);
     sum = sum + (sum >> 16);
     answer = (uint16_t) ~ sum;
-     
+
     return(answer);
 }
 
@@ -52,7 +52,7 @@ uint32_t csum2(void *dp, uint16_t count)
 		total = (total & 0xffff) + carries;
 
     total = ~total;
-    
+
 	return ((uint16_t)total);
 }
 
@@ -76,7 +76,7 @@ uint16_t ip_sum_calc(uint16_t buff[], uint16_t len_ip_header)
         sum = (sum & 0xffff) + (sum >> 16);
 
 	sum = ~sum;
-    
+
 	return ((uint16_t)sum);
 }
 
@@ -158,12 +158,12 @@ int main(void)
     p_tcph = (struct tcphdr *)(ip_raw + sizeof(struct iphdr));
     p_tcph->source = htons(0x2346);
     p_tcph->dest = htons(0x9909);
-    
+
     char *p_data;
     p_data = (char *)p_tcph + sizeof(struct tcphdr);
     char data[] = "ABCDEFGabcdefg";
     strncpy(p_data, data, sizeof(data));
-    
+
     print_chars_bits((uint16_t *)ip_raw, 10);
 
     uint16_t resu6 = csum((uint16_t *)ip_raw, 20);
@@ -171,18 +171,18 @@ int main(void)
 
     resu6 = csum2((uint16_t *)ip_raw, 20);
     printf("ip_raw csum2(%x)\n", resu6);
-    
+
     resu6 = ip_sum_calc((uint16_t *)ip_raw, 20);
     printf("ip_raw ip_sum_calc(%x)\n", resu6);
     p_iph->check = resu6;
     //print_chars_bits((uint16_t *)ip_raw, 30);
-    
+
     uint32_t *tmp1 = (uint32_t *)p_tcph;
     *tmp1 = 0x12349876;
     *(tmp1 + 1) = htonl(0x12345678);
     uint16_t *tmp2 = (uint16_t *)(tmp1 + 2);
     *(tmp2) = 0x7654;
-    *(tmp2 + 1) = htons(0x7654); 
+    *(tmp2 + 1) = htons(0x7654);
     //print_chars_bits((uint16_t *)ip_raw, 30);
 
     uint32_t tmp3;

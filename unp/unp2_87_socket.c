@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	int conn_status;
     memset(&serveraddr, 0, sizeof(serveraddr));
     memset(&clientaddr, 0, sizeof(clientaddr));
-    
+
     func_status = 0;
 	if (argv[1]) {
         func_status = inet_aton(argv[1], &(serveraddr.sin_addr));
@@ -63,6 +63,6 @@ int main(int argc, char *argv[])
     if (argv[2]) {
         printf("argv[2] = %s\n", argv[2]);
     }
-    
+
     return 0;
 }

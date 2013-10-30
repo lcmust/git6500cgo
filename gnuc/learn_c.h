@@ -5,6 +5,14 @@
  */
 #ifndef LEARN_C_H
 #define LEARN_C_H
+
+#define Free(ptr) \
+	do { \
+	if (NULL != ptr) \
+		free(ptr); \
+	ptr = NULL; \
+	} while (0)
+
 struct name_st {
 	char *name;
 	int age;

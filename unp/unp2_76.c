@@ -35,7 +35,7 @@ int main(void)
 	for (; ;) {
 		client_len = sizeof(client_addr);
 		connfd = accept(listenfd,(struct sockaddr *) &client_addr, &client_len);
-/*		printf("connection from %s, port %d\n", 
+/*		printf("connection from %s, port %d\n",
 				inet_ntop(AF_INET, &client_addr.sin_addr, buff, sizeof(buff)), ntohs(client_addr.sin_port));
  */
 	ticks = time(NULL);
