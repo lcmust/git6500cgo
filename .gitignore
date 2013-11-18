@@ -21,6 +21,7 @@
 #.gitignore
 *.[ao]
 *~
+.*swp
 
 # database
 *.db
