@@ -1,0 +1,431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tmux &amp;&amp; tmuxp &mdash; sphinx01 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="sphinx01 1.0 documentation" href="index.html" />
+    <link rel="prev" title="example of rst" href="example.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example.html" title="example of rst"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">sphinx01 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tmux-tmuxp">
+<h1>tmux &amp;&amp; tmuxp<a class="headerlink" href="#tmux-tmuxp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tmux-tmux-1-5">
+<h2>02) tmux (tmux-1.5)<a class="headerlink" href="#tmux-tmux-1-5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tmux">
+<h3>02-01) 安装tmux<a class="headerlink" href="#tmux" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="centostmux-1-5">
+<h4>02-01-01) CentOS系统下源码编译安装tmux-1.5：<a class="headerlink" href="#centostmux-1-5" title="Permalink to this headline">¶</a></h4>
+<p>tmux依赖 <tt class="docutils literal"><span class="pre">libevent</span></tt> 和 <tt class="docutils literal"><span class="pre">ncurses</span></tt> 开发包：
+(在CentOS 5/6系统中的 <tt class="docutils literal"><span class="pre">libevent-devel</span></tt> 版本太低，无法满足tmux的要求，所以需要用libevent源码编译安装，安装之后，再做一个链接即可。)</p>
+<p>这里开始仅仅作为测试，是我对RST的学习过程中的练习，比如一个链接，你点击这里 <a href="#id7"><span class="problematic" id="id8">`link come on&lt;http://baidu.com&gt;`_</span></a> 链接结束了。看效果吧？</p>
+<p>这里开始仅仅作为测试，是我对RST的学习过程中的练习，比如一个链接，你点击这里 <a href="#id1"><span class="problematic" id="id2">``</span></a>link come on&lt;<a class="reference external" href="http://baidu.com">http://baidu.com</a>&gt;``__ 链接结束了。看效果吧？</p>
+<p><tt class="docutils literal"><span class="pre">libevent-2.0.10-stable.tar.gz</span></tt> 源码编译安装</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">[</span>root@dns1 ~<span class="o">]</span><span class="c"># tar xzvf libevent-2.0.10-stable-tar.gz</span>
+<span class="o">[</span>root@dns1 ~<span class="o">]</span><span class="c"># cd libevent-2.0.10-stable</span>
+<span class="o">[</span>root@dns1 ~<span class="o">]</span><span class="c"># ./configure &amp;&amp; make &amp;&amp; make install</span>
+<span class="o">[</span>root@dns1 ~<span class="o">]</span><span class="c"># ln -s  /usr/local/lib/libevent-2.0.so.5 /usr/lib/libevent-2.0.so.5</span>
+</pre></div>
+</td></tr></table></div>
+<p><tt class="docutils literal"><span class="pre">ncurses-devel</span></tt> 可以直接使用系统２进制软件包安装</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">[</span>root@dns1 ~<span class="o">]</span><span class="c"># yum install ncurses-devel</span>
+<span class="o">[</span>root@dns1 ~<span class="o">]</span><span class="c"># tar xzvf tmux-1.5.tar.gz</span>
+<span class="o">[</span>root@dns1 ~<span class="o">]</span><span class="c"># cd tmux-1.5</span>
+<span class="o">[</span>root@dns1 tmux-1.5<span class="o">]</span><span class="c"># configure &amp;&amp; make &amp;&amp; make install</span>
+<span class="o">[</span>root@dns1 tmux-1.5<span class="o">]</span><span class="c"># tmux ls</span>
+tmux: error <span class="k">while </span>loading shared libraries: libevent-2.0.so.5: cannot open shared object file: No such file or directory
+</pre></div>
+</td></tr></table></div>
+<p>如果出现上面的错误提示，是因为安装libevent之后忘了做链接动态库。</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">[</span>root@dns1 tmux-1.5<span class="o">]</span><span class="c"># ln -s  /usr/local/lib/libevent-2.0.so.5 /usr/lib/libevent-2.0.so.5</span>
+<span class="o">[</span>root@dns1 tmux-1.5<span class="o">]</span><span class="c"># tmux</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="debian">
+<h4>02-01-02) debian系统可以直接从系统软件包来安装<a class="headerlink" href="#debian" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">[</span>admin@debian ~<span class="o">]</span> sudo apt-get install tmux
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>02-02) 基本使用<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line-block">
+<div class="line-block">
+<div class="line">按键绑定</div>
+</div>
+<div class="line">tmux may be controlled from an attached client by using a key combination of a prefix key, ‘C-b’ (Ctrl-b) by default, followed by a comma.</div>
+</div>
+<div class="line">The default command key bindings are:</div>
+<div class="line-block">
+<div class="line">C-b         Send the prefix key (C-b) through to the application.</div>
+<div class="line">C-o         Rotate the panes in the current window forwards.</div>
+<div class="line">C-z         Suspend the tmux client.</div>
+<div class="line">!           Break the current pane out of the window.</div>
+<div class="line">&#8221;           Split the current pane into two, top and bottom.</div>
+<div class="line">#           List all paste buffers.</div>
+<div class="line">%           Split the current pane into two, left and right.</div>
+<div class="line">&amp;           Kill the current window.</div>
+<div class="line">’           Prompt for a window index to select.</div>
+<div class="line">,           Rename the current window.</div>
+<div class="line">-           Delete the most recently copied buffer of text.</div>
+<div class="line">.           Prompt for an index to move the current window.</div>
+<div class="line">0 to 9      Select windows 0 to 9.</div>
+<div class="line">:           Enter the tmux command prompt.</div>
+<div class="line">;           Move to the previously active pane.</div>
+<div class="line">=           Choose which buffer to paste interactively from a list.</div>
+<div class="line">?           List all key bindings.</div>
+<div class="line">D           Choose a client to detach.</div>
+<div class="line">[           Enter copy mode to copy text or view the history.</div>
+<div class="line">]           Paste the most recently copied buffer of text.</div>
+<div class="line">c           Create a new window.</div>
+<div class="line">d           Detach the current client.</div>
+<div class="line">f           Prompt to search for text in open windows.</div>
+<div class="line">i           Display some information about the current window.</div>
+<div class="line">l           Move to the previously selected window.</div>
+<div class="line">n           Change to the next window.</div>
+<div class="line">o           Select the next pane in the current window.</div>
+<div class="line">p           Change to the previous window.</div>
+<div class="line">q           Briefly display pane indexes.</div>
+<div class="line">r           Force redraw of the attached client.</div>
+<div class="line">s           Select a new session for the attached client interactively.</div>
+<div class="line">L           Switch the attached client back to the last session.</div>
+<div class="line">t           Show the time.</div>
+<div class="line">w           Choose the current window interactively.</div>
+<div class="line">x           Kill the current pane.</div>
+<div class="line">{           Swap the current pane with the previous pane.</div>
+<div class="line">}           Swap the current pane with the next pane.</div>
+<div class="line">~           Show previous messages from tmux, if any.</div>
+<div class="line">Page Up     Enter copy mode and scroll one page up.</div>
+<div class="line">Up, Down</div>
+<div class="line">Left, Right  Change to the pane above, below, to the left, or to the right of the current pane.</div>
+<div class="line">M-1 to M-5  Arrange panes in one of the five preset layouts: even-horizontal, even-vertical, main-horizontal, main-verti-cal, or tiled.</div>
+<div class="line">M-n         Move to the next window with a bell or activity marker.</div>
+<div class="line">M-o         Rotate the panes in the current window backwards.</div>
+<div class="line">M-p         Move to the previous window with a bell or activity marker.</div>
+<div class="line">C-Up, C-Down</div>
+<div class="line">C-Left, C-Right  Resize the current pane in steps of one cell.</div>
+<div class="line">M-Up, M-Down</div>
+<div class="line">M-Left, M-Right  Resize the current pane in steps of five cells.</div>
+</div>
+</div>
+<blockquote>
+<div>Key bindings may be changed with the bind-key and unbind-key commands.</div></blockquote>
+<div class="line-block">
+<div class="line">根据tmux的定义，在开启了tmux服务器后，会首先创建一个会话，而这个会话则会首先创建一个窗口，其中仅包含一个面板；也就是说，这里看到的所谓终端控制台应该称作tmux的一个面板，虽然其使用方法与终端控制台完全相同。</div>
+</div>
+<div class="line-block">
+<div class="line">tmux使用C/S模型构建，主要包括以下单元模块：</div>
+<div class="line">server 服务器。输入tmux命令时就开启了一个服务器。</div>
+<div class="line">session 会话。一个服务器可以包含多个会话。</div>
+<div class="line">window 窗口。一个会话可以包含多个窗口。</div>
+<div class="line">pane 面板。一个窗口可以包含多个面板。</div>
+</div>
+<p>操作: 类似各种平铺式窗口管理器，tmux使用键盘操作，常用快捷键包括：
+Ctrl+b  激活控制台；此时以下按键生效</p>
+<dl class="docutils">
+<dt>系统操作:</dt>
+<dd>?  列出所有快捷键；按q返回
+d 脱离当前会话；这样可以暂时返回Shell界面，输入tmux attach能够重新进入之前的会话
+D 选择要脱离的会话；在同时开启了多个会话时使用Ctrl+z 挂起当前会话
+r 强制重绘未脱离的会话
+s 选择并切换会话；在同时开启了多个会话时使用
+: 进入命令行模式；此时可以输入支持的命令，例如kill-server可以关闭服务器
+[ 进入复制/卷屏模式；此时的操作与emacs/vi相同（在配置文件中set-option -g
+status-keys emacs/vi）按q/&lt;ENTER&gt;退出：q为直接退出，&lt;ENTER&gt;为复制标
+记块并退出; emacs: Ctrl+n/Ctrl+p/Ctrl+f/Ctrl+b移动光标，Ctrl+&#64;开始标
+记（开始复制），Alt+w/Ctrl+w结束标记（复制结束）并退出复制模式; vim:
+h/j/k/l移动光标，&lt;SPACE&gt;开始标记（复制开始），&lt;ENTER&gt;结束标记（复制
+结束）并退出复制模式
+] 进入粘贴模式（C-b ]粘贴）将一个会话中的内容复制粘贴到另一个窗口中。但是不能将会话中的内容复制到第3方程序中。只能在另一个会话中开启vim或者emacs终端下的编辑程序，然后用Ctrl-b ]进行粘贴，然后在会话中的终端下编译程序中进行保存。
+~ 列出提示信息缓存；其中包含了之前tmux返回的各种提示信息</dd>
+<dt>窗口操作:</dt>
+<dd>c  创建新窗口
+&amp;  关闭当前窗口
+数字键  切换至指定窗口
+p  切换至上一窗口
+n  切换至下一窗口
+l  在前后两个窗口间互相切换
+w  通过窗口列表切换窗口
+,  重命名当前窗口；这样便于识别
+.  修改当前窗口编号；相当于窗口重新排序
+f  在所有窗口中查找指定文本</dd>
+<dt>面板操作:</dt>
+<dd><p class="first">”  将当前面板平分为上下两块
+%  将当前面板平分为左右两块
+Ctrl+Down  缩小当前面板
+Ctrl+Up    增大当前面板</p>
+<p class="last">x  关闭当前面板
+!  将当前面板置于新窗口；即新建一个窗口，其中仅包含当前面板
+Ctrl+方向键  以1个单元格为单位移动边缘以调整当前面板大小
+Alt+方向键  以5个单元格为单位移动边缘以调整当前面板大小
+Space  在预置的面板布局中循环切换（水平分割与垂直分割）；依次包括even-horizontal、even-vertical、main-horizontal、main-vertical、tiled
+q  显示面板编号
+o  在当前窗口中选择下一面板（在当前窗口的多个面板中切换）
+Up/Down/Right/Left方向键  移动光标以选择面板（在当前窗口中上下左右切换面板）
+{  向前置换当前面板
+}  向后置换当前面板
+Alt+o  逆时针旋转当前窗口的面板
+Ctrl+o  顺时针旋转当前窗口的面板</p>
+</dd>
+</dl>
+<p>shell&gt;tmux ls
+显示已有会话(tmux list-session)
+shell&gt;tmux a
+连接到之前断开的会话(tmux attach-session)
+shell&gt;tmux a -t 0/1/2
+连接到之前断开的某一个会话0/1/2</p>
+<p>shell&gt; tmux ls
+0: 2 windows (created Thu Jan  3 12:01:08 2013) [80x23] (attached)</p>
+<p>shell&gt; tmux new-session #开启第2个tmux会话
+shell&gt; tmux ls
+0: 2 windows (created Thu Jan  3 12:01:08 2013) [80x23] (attached)
+1: 1 windows (created Thu Jan  3 13:25:09 2013) [80x23] (attached)</p>
+<p>###显示所有会话
+shell&gt; tmux list-session</p>
+<p>###显示所有窗口
+shell&gt; tmux list-windows</p>
+<p>###显示所有面板
+shell&gt; tmux list-panes</p>
+<p>###显示连接到SERVER上的客户端attached
+shell&gt; tmux list-clients</p>
+</div>
+<div class="section" id="tmuxc-bm-alt">
+<h3>02-03) 修改tmux的默认按键C-b替换为M-](Alt-])<a class="headerlink" href="#tmuxc-bm-alt" title="Permalink to this headline">¶</a></h3>
+<p>在tmux的配置文件~/.tmux.conf中添加以下行：</p>
+<div class="highlight-python"><pre>set-option -g prefix M-]
+unbind-key ^b
+bind-key M-] send-prefix</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>02-04) 分离与附加面板到窗口中<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>M-] .   ###将当前面板分离到新的窗口中</p>
+<p>M-] :break-pane    ###同上，将当前面板分离到新窗口中</p>
+<p>M-] :join-pane -s 2 -t 1   #将当前窗口附加到某个会话(-s 2)下的某个窗口(-t 1)</p>
+</div>
+</div>
+<div class="section" id="tmuxp">
+<h2>03) tmuxp<a class="headerlink" href="#tmuxp" title="Permalink to this headline">¶</a></h2>
+<p>tmux session manager in python - json, yaml, python API <a class="reference external" href="http://tmuxp.readthedocs.org/en/latest/">http://tmuxp.readthedocs.org/en/latest/</a>
+<a class="reference external" href="https://github.com/tony/tmuxp">https://github.com/tony/tmuxp</a></p>
+<div class="section" id="install">
+<h3>03-01) install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>/mnt/sda2h/tools/git1$ git clone https://github.com/tony/tmuxp.git tmuxp
+$ cd
+$ virtualenv tmuxp
+$ source ./tmuxp/bin/activate
+$ pip install -e /mnt/sda2h/tools/git1/tmuxp/
+(tmuxp)love@d7s3:~$ pip install -e /mnt/sda2h/tools/git1/tmuxp/
+Obtaining file:///mnt/sda2h/tools/git1/tmuxp
+  Running setup.py egg_info for package from file:///mnt/sda2h/tools/git1/tmuxp
+
+Downloading/unpacking kaptan&gt;=0.5.7 (from tmuxp==0.0.42)
+  Downloading kaptan-0.5.7.tar.gz
+  Running setup.py egg_info for package kaptan
+
+Downloading/unpacking argcomplete (from tmuxp==0.0.42)
+  Downloading argcomplete-0.6.3.tar.gz
+  Running setup.py egg_info for package argcomplete
+
+Downloading/unpacking PyYAML (from kaptan&gt;=0.5.7-&gt;tmuxp==0.0.42)
+  Downloading PyYAML-3.10.tar.gz (241kB): 241kB downloaded
+  Running setup.py egg_info for package PyYAML
+
+Installing collected packages: kaptan, argcomplete, tmuxp, PyYAML
+  Running setup.py install for kaptan
+
+    Installing kaptan script to /home/love/tmuxp/bin
+  Running setup.py install for argcomplete
+
+    changing mode of build/scripts-2.7/python-argcomplete-check-easy-install-script from 644 to 755
+    changing mode of build/scripts-2.7/register-python-argcomplete from 644 to 755
+    changing mode of build/scripts-2.7/activate-global-python-argcomplete from 644 to 755
+    changing mode of /home/love/tmuxp/bin/python-argcomplete-check-easy-install-script to 755
+    changing mode of /home/love/tmuxp/bin/register-python-argcomplete to 755
+    changing mode of /home/love/tmuxp/bin/activate-global-python-argcomplete to 755
+  Running setup.py develop for tmuxp
+
+    Creating /home/love/tmuxp/lib/python2.7/site-packages/tmuxp.egg-link (link to .)
+    Adding tmuxp 0.0.42 to easy-install.pth file
+    Installing tmuxp script to /home/love/tmuxp/bin
+    Installing tmuxp.bash script to /home/love/tmuxp/bin
+    Installing tmuxp.zsh script to /home/love/tmuxp/bin
+    Installing tmuxp.tcsh script to /home/love/tmuxp/bin
+
+    Installed /mnt/sda2h/tools/git1/tmuxp
+  Running setup.py install for PyYAML
+    checking if libyaml is compilable
+    gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/include/python2.7 -c build/temp.linux-i686-2.7/check_libyaml.c -o build/temp.linux-i686-2.7/check_libyaml.o
+    build/temp.linux-i686-2.7/check_libyaml.c:2:18: fatal error: yaml.h: 没有那个文件或目录
+    compilation terminated.
+
+    libyaml is not found or a compiler error: forcing --without-libyaml
+    (if libyaml is installed correctly, you may need to
+     specify the option --include-dirs or uncomment and
+     modify the parameter include_dirs in setup.cfg)
+
+Successfully installed kaptan argcomplete tmuxp PyYAML
+Cleaning up...
+(tmuxp)love@d7s3:~$
+(tmuxp)love@d7s3:~$ pip freeze
+PyYAML==3.10
+argcomplete==0.6.3
+argparse==1.2.1
+kaptan==0.5.7
+-e git+https://github.com/tony/tmuxp.git@8499593eb2d826ec55b7333c584c6e39557f5855#egg=tmuxp-dev
+wsgiref==0.1.2</pre>
+</div>
+</div>
+<div class="section" id="yamltmuxp-tmux">
+<h3>03-02) 编写yaml风格的tmuxp配置文件(tmux的会话 窗口 面板及运行的命令)<a class="headerlink" href="#yamltmuxp-tmux" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>(tmuxp)love@d7s3:~$ cat .tmuxp/devc.yaml
+session_name: devc
+windows:
+- window_name: dev
+  layout: main-vertical
+  shell_command_before:
+    - cd ~/gitcgo/gnuc/
+  panes:
+    - shell_command:
+        - emacs learn_c.c
+    - date</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>03-03) tmuxp调用上面的配置文件进入工作环境<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>(tmuxp)$ source ./tmuxp/bin/tmuxp.bash
+(tmuxp)$ tmuxp load devc.yaml</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>03-04) 更多帮助见项目文档说明<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/tony/tmuxp">https://github.com/tony/tmuxp</a>
+OR
+<a class="reference external" href="http://tmuxp-zh.readthedocs.org/en/latest/">http://tmuxp-zh.readthedocs.org/en/latest/</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">tmux &amp;&amp; tmuxp</a><ul>
+<li><a class="reference internal" href="#tmux-tmux-1-5">02) tmux (tmux-1.5)</a><ul>
+<li><a class="reference internal" href="#tmux">02-01) 安装tmux</a><ul>
+<li><a class="reference internal" href="#centostmux-1-5">02-01-01) CentOS系统下源码编译安装tmux-1.5：</a></li>
+<li><a class="reference internal" href="#debian">02-01-02) debian系统可以直接从系统软件包来安装</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">02-02) 基本使用</a></li>
+<li><a class="reference internal" href="#tmuxc-bm-alt">02-03) 修改tmux的默认按键C-b替换为M-](Alt-])</a></li>
+<li><a class="reference internal" href="#id4">02-04) 分离与附加面板到窗口中</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tmuxp">03) tmuxp</a><ul>
+<li><a class="reference internal" href="#install">03-01) install</a></li>
+<li><a class="reference internal" href="#yamltmuxp-tmux">03-02) 编写yaml风格的tmuxp配置文件(tmux的会话 窗口 面板及运行的命令)</a></li>
+<li><a class="reference internal" href="#id5">03-03) tmuxp调用上面的配置文件进入工作环境</a></li>
+<li><a class="reference internal" href="#id6">03-04) 更多帮助见项目文档说明</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example.html"
+                        title="previous chapter">example of rst</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tmux_tmuxp.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example.html" title="example of rst"
+             >previous</a> |</li>
+        <li><a href="index.html">sphinx01 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, chengl6500.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

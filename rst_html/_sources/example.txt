@@ -1,0 +1,171 @@
+==============
+example of rst
+==============
+
+This is a Title
+===============
+That has a paragraph about a main subject and is set when the '='
+is at least the same length of the title itself. *italia* **bold**
+
+new paragraph, \*fsaffdsfa\* is use \\ and a character, this example is \\ and \*, if not use \\, source like this" \*aaa\*" will display as "*aaa*"
+;
+
+use the "\\", source like this "\\*bbbb\\*" will display as "\*bbb\*"
+
+here is other: /abcdefg /*jjjj/*  *kkkkk*  \*jjjj2\*   
+
+Subject Subtitle
+----------------
+Subtitles are set with '-' and are required to have the same length 
+of the subtitle itself, just like titles.
+
+Lists can be unnumbered like:
+
+ * Item Foo
+ * Item Bar
+
+ - Item tool
+ - Item tool2
+ - Item tool3
+
+ + Item tool
+ + Item tool2
+ + Item tool3
+
+Or automatically numbered:
+
+ #. Item 1
+ #. Item 2
+ #. Item 3
+ #. Item 4
+ #. Item 5
+ #. Item 6
+ #. Item 7
+ #. Item 8
+ #. Item 9
+ #. Item 10
+ #. Item 11
+
+Inline Markup
+-------------
+Words can have *emphasis in italics* or be **bold** and you can define
+code samples with back quotes, like when you talk about a command: ``sudo`` 
+gives you super user powers! 
+
+语法意义如下：
+文字下带双划线：是标题
+文字下带单划线：是子标题
+文字前加*号：是列表
+文字前加#号：是带序号的列表
+
+new test
+--------
+:Authors:
+    Tony J. (Tibs) Ibbs,
+    David Goodger
+
+    (and sundry other good-natured folks)
+
+:Version: 1.0 of 2001/08/08
+:Dedication: To my father. 
+
+line blocks
+-----------
+
+| Words can have *emphasis in italics* or be **bold** and you can define
+| code samples with back quotes, like when you talk about a command: ``sudo`` 
+| gives you super user powers! 
+
+|    Words can have *emphasis in italics* or be **bold** and you can define
+| code samples with back quotes, like when you talk about a command: ``sudo`` 
+| gives you super user powers! 
+
+third title
+^^^^^^^^^^^
+hi guys
+
+literal blocks
+--------------
+Words can have *emphasis in italics* or be **bold** and you can define
+code samples with back quotes, like when you talk about a command: ``sudo`` 
+gives you ``super`` user powers! 
+
+::
+
+  Words can have *emphasis in italics* or be **bold** and you can define
+  code samples with back quotes, like when you talk about a command: ``sudo`` 
+  gives you super user powers! 
+    we start here
+  and continue here
+ and end here
+
+table
+-----
+ Grid table:
+
+ +------------+------------+-----------+
+ | Header 1   | Header 2   | Header 3  |
+ +============+============+===========+
+ | body row 1 | column 2   | column 3  |
+ +------------+------------+-----------+
+ | body row 2 | Cells may span columns.|
+ +------------+------------+-----------+
+ | body row 3 | Cells may  | - Cells   |
+ +------------+ span rows. | - contain |
+ | body row 4 |            | - blocks. |
+ +------------+------------+-----------+
+
+ Simple table:
+
+=====  =====  ======
+   Inputs     Output
+------------  ------
+  A      B    A or B
+=====  =====  ======
+False  False  False
+True   False  True
+False  True   True
+True   True   True
+=====  =====  ======
+
+
+footnotes
+---------
+
+Autonumbered footnotes are
+possible, like using [#]_ and [#]_.
+
+.. [#] This is the first one.
+.. [#] This is the second one.
+
+They may be assigned 'autonumber
+labels' - for instance,
+[#fourth]_ and [#third]_.
+
+.. [#third] a.k.a. third_
+
+.. [#fourth] a.k.a. fourth_ 
+
+Hyperlink
+---------
+External hyperlinks, like Python_.
+
+embedded URLs: like `oschina`_.
+like `www.google.com`_
+like `www.javascript.com`_
+
+.. _Python: http://www.python.org/ 
+.. _oschina: http://www.oschina.net
+.. _javascript: http://www.javascript.org/ 
+.. _baidu: http://www.baidu.com
+.. _www.google.com: http://www.google.com
+.. _www.javascript.com: http://www.js.com
+
+comments
+--------
+we are contiune
+
+..
+
+  we are never stop
+
