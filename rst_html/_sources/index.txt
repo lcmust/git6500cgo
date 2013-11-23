@@ -1,19 +1,25 @@
+.. _begin_0:
+
 .. sphinx01 documentation master file, created by
    sphinx-quickstart on Mon May 20 11:29:48 2013.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to sphinx01's documentation!
-====================================
+.. Welcome to sphinx01's documentation!
+.. ====================================
+
+用Sphinx管理reStructuredText文档格式的一些学习记录
+========================================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-   django_readme
-   example
+
+   rst_sphinx
    tmux_tmuxp
+   example
 
 
 

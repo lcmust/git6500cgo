@@ -28,9 +28,9 @@
 
 # other
 *.ico
-*.png
-*.jpg
-*.jpeg
+# *.png
+# *.jpg
+# *.jpeg
 
 # paths
 gnuc/bin/

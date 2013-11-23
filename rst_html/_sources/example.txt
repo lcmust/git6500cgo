@@ -1,6 +1,8 @@
-==============
-example of rst
-==============
+.. _pos_0:
+
+=======================================
+example of rst/这是关于rst的学习实例
+=======================================
 
 This is a Title
 ===============
@@ -161,6 +163,25 @@ like `www.javascript.com`_
 .. _www.google.com: http://www.google.com
 .. _www.javascript.com: http://www.js.com
 
+图像显示
+--------
+
+你会看到 :ref:`oss_131` 图像1在下面  :ref:`oss131_getit` 也在下面
+
+.. _oss_131:
+.. figure:: _static/opensuse13.1.jpg
+   :align: center
+
+
+   图像显示opensuse13.1
+
+.. _oss131_getit:
+.. figure:: _static/opensuse.getit.png
+
+   opensuse-getit
+
+
+
 comments
 --------
 we are contiune
@@ -168,4 +189,47 @@ we are contiune
 ..
 
   we are never stop
+
+其它学习测试
+==================
+
+这里开始仅仅作为测试，是我对RST的学习过程中的练习，比如一个链接，你点击这里 `link come on<http://baidu.com>` 链接结束了。看效果吧？
+
+这里开始仅仅作为测试，是我对RST的学习过程中的练习，比如一个链接，你点击这里 ``link come on<http://baidu.com>`` 链接结束了。看效果吧？
+
+很多地方都还没搞清楚呢， 加油。加油。 神奇的插图 :ref:`图例显示<fig_test1>` 
+
+.. _fig_test1:
+.. figure:: _static/for_rst1.png
+
+上下标号
+:: 
+
+  H\ :sub:`2`\ O
+  E = mc\ :sup:`2`
+
+将显示为下面效果
+
+H\ :sub:`2`\ O
+
+E = mc\ :sup:`2`
+
+:ref:`点击返回页面顶端<pos_0>`
+
+字体效果 斜体 *abc* 粗体 **粗了没** 
+
+ * \*斜体\*. 被\*包围的文字是斜体 *斜体*
+ * \**粗体**. 被\**包围的文字是粗体 **粗体**
+
+原文::
+
+     *斜体*
+     **粗体**
+
+显示效果如下：
+    *斜体*
+    **粗体**
+
+ #. \*斜体\*. 被\*包围的文字是斜体
+ #. \**粗体**. 被\**包围的文字是粗体
 

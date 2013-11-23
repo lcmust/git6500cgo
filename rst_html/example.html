@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>example of rst &mdash; sphinx01 1.0 documentation</title>
+    <title>example of rst/这是关于rst的学习实例 &mdash; sphinx01 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,8 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="sphinx01 1.0 documentation" href="index.html" />
-    <link rel="next" title="tmux &amp;&amp; tmuxp" href="tmux_tmuxp.html" />
-    <link rel="prev" title="django readme" href="django_readme.html" /> 
+    <link rel="prev" title="tmux和tmuxp的学习笔记" href="tmux_tmuxp.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,10 +34,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="tmux_tmuxp.html" title="tmux &amp;&amp; tmuxp"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="django_readme.html" title="django readme"
+          <a href="tmux_tmuxp.html" title="tmux和tmuxp的学习笔记"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">sphinx01 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,8 +45,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="example-of-rst">
-<h1>example of rst<a class="headerlink" href="#example-of-rst" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="example-of-rst-rst">
+<span id="pos-0"></span><h1>example of rst/这是关于rst的学习实例<a class="headerlink" href="#example-of-rst-rst" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="this-is-a-title">
 <h2>This is a Title<a class="headerlink" href="#this-is-a-title" title="Permalink to this headline">¶</a></h2>
 <p>That has a paragraph about a main subject and is set when the &#8216;=&#8217;
@@ -274,12 +270,63 @@ labels&#8217; - for instance,
 like <a class="reference external" href="http://www.google.com">www.google.com</a>
 like <a class="reference external" href="http://www.js.com">www.javascript.com</a></p>
 </div>
+<div class="section" id="id7">
+<h3>图像显示<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>你会看到 <a class="reference internal" href="#oss-131"><em>图像显示opensuse13.1</em></a> 图像1在下面  <a class="reference internal" href="#oss131-getit"><em>opensuse-getit</em></a> 也在下面</p>
+<div class="figure align-center" id="oss-131">
+<img alt="_images/opensuse13.1.jpg" src="_images/opensuse13.1.jpg" />
+<p class="caption">图像显示opensuse13.1</p>
+</div>
+<div class="figure" id="oss131-getit">
+<img alt="_images/opensuse.getit.png" src="_images/opensuse.getit.png" />
+<p class="caption">opensuse-getit</p>
+</div>
+</div>
 <div class="section" id="comments">
 <h3>comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
 <p>we are contiune</p>
 <blockquote>
 <div>we are never stop</div></blockquote>
 </div>
+</div>
+<div class="section" id="id8">
+<h2>其它学习测试<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>这里开始仅仅作为测试，是我对RST的学习过程中的练习，比如一个链接，你点击这里 <cite>link come on&lt;http://baidu.com&gt;</cite> 链接结束了。看效果吧？</p>
+<p>这里开始仅仅作为测试，是我对RST的学习过程中的练习，比如一个链接，你点击这里 <tt class="docutils literal"><span class="pre">link</span> <span class="pre">come</span> <span class="pre">on&lt;http://baidu.com&gt;</span></tt> 链接结束了。看效果吧？</p>
+<p>很多地方都还没搞清楚呢， 加油。加油。 神奇的插图 <a class="reference internal" href="#fig-test1"><em>图例显示</em></a></p>
+<div class="figure" id="fig-test1">
+<img alt="_images/for_rst1.png" src="_images/for_rst1.png" />
+</div>
+<p>上下标号</p>
+<div class="highlight-python"><pre>H\ :sub:`2`\ O
+E = mc\ :sup:`2`</pre>
+</div>
+<p>将显示为下面效果</p>
+<p>H<sub>2</sub>O</p>
+<p>E = mc<sup>2</sup></p>
+<p><a class="reference internal" href="#pos-0"><em>点击返回页面顶端</em></a></p>
+<p>字体效果 斜体 <em>abc</em> 粗体 <strong>粗了没</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>*斜体*. 被*包围的文字是斜体 <em>斜体</em></li>
+<li>**粗体**. 被**包围的文字是粗体 <strong>粗体</strong></li>
+</ul>
+</div></blockquote>
+<p>原文:</p>
+<div class="highlight-python"><pre>*斜体*
+**粗体**</pre>
+</div>
+<dl class="docutils">
+<dt>显示效果如下：</dt>
+<dd><blockquote class="first">
+<div><em>斜体</em>
+<strong>粗体</strong></div></blockquote>
+<ol class="last arabic simple">
+<li>*斜体*. 被*包围的文字是斜体</li>
+<li>**粗体**. 被**包围的文字是粗体</li>
+</ol>
+</dd>
+</dl>
 </div>
 </div>
 
@@ -291,7 +338,7 @@ like <a class="reference external" href="http://www.js.com">www.javascript.com</
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">example of rst</a><ul>
+<li><a class="reference internal" href="#">example of rst/这是关于rst的学习实例</a><ul>
 <li><a class="reference internal" href="#this-is-a-title">This is a Title</a><ul>
 <li><a class="reference internal" href="#subject-subtitle">Subject Subtitle</a></li>
 <li><a class="reference internal" href="#inline-markup">Inline Markup</a></li>
@@ -304,19 +351,18 @@ like <a class="reference external" href="http://www.js.com">www.javascript.com</
 <li><a class="reference internal" href="#table">table</a></li>
 <li><a class="reference internal" href="#footnotes">footnotes</a></li>
 <li><a class="reference internal" href="#hyperlink">Hyperlink</a></li>
+<li><a class="reference internal" href="#id7">图像显示</a></li>
 <li><a class="reference internal" href="#comments">comments</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id8">其它学习测试</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="django_readme.html"
-                        title="previous chapter">django readme</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="tmux_tmuxp.html"
-                        title="next chapter">tmux &amp;&amp; tmuxp</a></p>
+                        title="previous chapter">tmux和tmuxp的学习笔记</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/example.txt"
@@ -346,10 +392,7 @@ like <a class="reference external" href="http://www.js.com">www.javascript.com</
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="tmux_tmuxp.html" title="tmux &amp;&amp; tmuxp"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="django_readme.html" title="django readme"
+          <a href="tmux_tmuxp.html" title="tmux和tmuxp的学习笔记"
              >previous</a> |</li>
         <li><a href="index.html">sphinx01 1.0 documentation</a> &raquo;</li> 
       </ul>
