@@ -337,31 +337,39 @@ Contents:
 </div>
 <div class="section" id="restructuredtext-sphinx-github-restructuredtext">
 <h3>01-13) reStructuredText &amp;&amp; Sphinx &amp;&amp; github(使用 reStructuredText 编写用户手册)<a class="headerlink" href="#restructuredtext-sphinx-github-restructuredtext" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="http://blog.ftao.org/2011/05/28/write-user-manual-using-restructredtest-and-sphinx/">http://blog.ftao.org/2011/05/28/write-user-manual-using-restructredtest-and-sphinx/</a>
-<a class="reference external" href="http://blog.csdn.net/jiyucn/article/details/2157189">http://blog.csdn.net/jiyucn/article/details/2157189</a></p>
+<blockquote>
+<div>本节内容转自于以下链接： <a class="reference external" href="http://blog.ftao.org/2011/05/28/write-user-manual-using-restructredtest-and-sphinx/">使用 reStructuredText 编写用户手册</a></div></blockquote>
 <p>前几天，将ezEngage 的帮助文档重新写了一遍。这么做的原因是原来的文档直接用HTML写的，并且和主站放在一起。
 发布不方便，只是修改一点东西也要和主站一起发布。并且原始文件就是HTML，写起来很麻烦。</p>
 <p>我用reStructuredText + Sphinx + github pages 重新编写，部署和发布了一份帮助文档。</p>
-<p>reStructuredText 是一种轻量级的标记语言，特点是原始文件可读性很好。
-Python 以及很多Python著名的开源项目（比如Django) 都使用该格式的来编写文档和手册。
-Sphinx 的一个将reStructuredText 文件转换成各种格式（比如HTML,LeTex,PDF 等)的工具。
-GitHub Pages 是一个GitHub 提供的托管静态页面的服务，只要内容通过git 推送到github 上面，就很可以方便发布内容了。</p>
-<p>步骤如下:
-#. 在github 上面建立一个仓库，开通github pages 功能
-#. 将master 和 gh-pages 两个分支checkout 到本地的两个目录 (比如说 example-master , example-gh-pages)
-#. 在master branch 里面正常写 reStructuredText ,
-#. 符号链接 example-master/_build/html 　到 example-gh-pages
-#. make html , 生成html
-#. push gh-pages 分支到 github , 发布完成。</p>
-<p>这个方案的好处:
-#. 源文件可读性好
-#. 有版本管理
-#. github pages 发布很方便
-#. 服务器都省了….</p>
-<p>链接:
-#. 这份文档对应的仓库: <a class="reference external" href="https://github.com/ezengage/ezengage-site/">https://github.com/ezengage/ezengage-site/</a>
-#. GitHub Pages <a class="reference external" href="http://pages.github.com/">http://pages.github.com/</a>
-#. Sphinx <a class="reference external" href="http://sphinx.pocoo.org">http://sphinx.pocoo.org</a></p>
+<ul class="simple">
+<li>reStructuredText 是一种轻量级的标记语言，特点是原始文件可读性很好。</li>
+<li>Python 以及很多Python著名的开源项目（比如Django) 都使用该格式的来编写文档和手册。</li>
+<li>Sphinx 的一个将reStructuredText 文件转换成各种格式（比如HTML,LeTex,PDF 等)的工具。</li>
+<li>GitHub Pages 是一个GitHub 提供的托管静态页面的服务，只要内容通过git 推送到github 上面，就很可以方便发布内容了。</li>
+</ul>
+<p>步骤如下:</p>
+<ol class="arabic simple">
+<li>在github 上面建立一个仓库，开通github pages 功能</li>
+<li>将master 和 gh-pages 两个分支checkout 到本地的两个目录 (比如说 example-master , example-gh-pages)</li>
+<li>在master branch 里面正常写 reStructuredText ,</li>
+<li>符号链接 example-master/_build/html 　到 example-gh-pages</li>
+<li>make html , 生成html</li>
+<li>push gh-pages 分支到 github , 发布完成。</li>
+</ol>
+<p>这个方案的好处:</p>
+<ol class="arabic simple">
+<li>源文件可读性好</li>
+<li>有版本管理</li>
+<li>github pages 发布很方便</li>
+<li>服务器都省了….</li>
+</ol>
+<p>链接:</p>
+<ol class="arabic simple">
+<li>这份文档对应的仓库: <a class="reference external" href="https://github.com/ezengage/ezengage-site/">https://github.com/ezengage/ezengage-site/</a></li>
+<li>GitHub Pages <a class="reference external" href="http://pages.github.com/">http://pages.github.com/</a></li>
+<li>Sphinx <a class="reference external" href="http://sphinx.pocoo.org">http://sphinx.pocoo.org</a></li>
+</ol>
 <p>ps: reStructuredText 和 RESTful 这两个拼写上都和 rest 相近， Sphinx （文档生成工具, <a class="reference external" href="http://sphinx.pocoo.org">http://sphinx.pocoo.org</a>) 以及 Sphinx (全文搜索引擎, <a class="reference external" href="http://sphinxsearch.com/">http://sphinxsearch.com/</a>) 都叫Sphinx 。搜索的时候很容易混淆。</p>
 </div>
 </div>
@@ -374,8 +382,8 @@ GitHub Pages 是一个GitHub 提供的托管静态页面的服务，只要内容
 <p>虽然 Sphinx 是用 Python 编写的，并且最初是为 Python 语言文档而创建，但它并不一定是以语言为中心，在某些情况下，甚至不是以程序员为中心。Sphinx 有许多用处，比如可以用它来编写整本书！</p>
 <p>可以将 Sphinx 想像成为一种文档框架：它会抽象化比较单调的部分，并提供自动函数来解决一些常见问题，比如突出显示标题索引和特殊代码（在显示代码示例时），以及突出显示适当的语法。</p>
 <p>学习参考 <a class="reference external" href="http://www.ibm.com/developerworks/cn/opensource/os-sphinx-documentation/">使用 sphinx 制作简洁而又美观的文档</a></p>
-<div class="section" id="id16">
-<h3>02-01) Sphinx安装和配置<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h3>02-01) Sphinx安装和配置<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><pre>pip install Sphinx</pre>
 </div>
 <p>或者</p>
@@ -461,8 +469,8 @@ where "builder" is one of the supported builders, e.g. html, latex or linkcheck.
 love@db6sda8:/tmp/Sphinx$</pre>
 </div>
 </div>
-<div class="section" id="id17">
-<h3>02-02) 自动在当前目录中生成下列文件和目录<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id18">
+<h3>02-02) 自动在当前目录中生成下列文件和目录<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="mailto:love&#37;&#52;&#48;db6sda8">love<span>&#64;</span>db6sda8</a>:/tmp/Sphinx$ tree</p>
 <div class="highlight-python"><pre>.
 |-- _build/
@@ -519,8 +527,8 @@ Indices and tables
 <p>在前面的例子中，主标题显示为内容索引中的主要项目符号，副标题显示为二级项目符号。Sphinx 小心维护着让整个结构保持正确。</p>
 <p>所有的链接都指向文档中的正确位置，并且标题和副标题均有定位点，允许直接进行链接。比如，Subject Subtitle 部分在浏览器中有一个类似 ../example.html#subject-subtitle 的定位点。如前所述，该工具消除了我们对这些琐碎的、重复的需求的顾虑。</p>
 </div>
-<div class="section" id="id18">
-<h3>02-03) 更多功能<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id19">
+<h3>02-03) 更多功能<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <p>Sphinx 能够用不同的格式导出文档，但要求安装额外的库和软件。可生成的格式包括：PDF、epub、man (UNIX Manual Pages) 和 LaTeX。</p>
 <p>对于复杂的图形，有一个插件可将 Graphviz 图形添加至您的文档项目。我曾经不得不为一个小型办公网络地图创建一个插件，但它表现相当出色，无需使用其他工具，便可在同一文档中获取所有的东西。与 Graphviz 插件类似，有大量可用于 Sphinx 的插件（亦称为扩展）。Sphinx 提供了一些插件，比如 interSphinx，该插件允许您链接不同的 Sphinx 项目。</p>
 <p>如果生成的输出的外观不符合您的喜好，Sphinx 还提供了许多主题，可应用它们来完全改变 HTML 文件呈现文档的方式。一些重要的开源项目，如 Celery 和 Lettuce，通过更改 CSS 并扩展模板完全更改了 HTML 的外观。</p>
@@ -564,9 +572,9 @@ Indices and tables
 </ul>
 </li>
 <li><a class="reference internal" href="#sphinx">02) Sphinx：</a><ul>
-<li><a class="reference internal" href="#id16">02-01) Sphinx安装和配置</a></li>
-<li><a class="reference internal" href="#id17">02-02) 自动在当前目录中生成下列文件和目录</a></li>
-<li><a class="reference internal" href="#id18">02-03) 更多功能</a></li>
+<li><a class="reference internal" href="#id17">02-01) Sphinx安装和配置</a></li>
+<li><a class="reference internal" href="#id18">02-02) 自动在当前目录中生成下列文件和目录</a></li>
+<li><a class="reference internal" href="#id19">02-03) 更多功能</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#retextpython-qt4rst">03) ReText是基于python-qt4开发的rst文档编辑器，有实时预览功能</a></li>
