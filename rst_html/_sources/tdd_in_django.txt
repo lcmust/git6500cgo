@@ -1,0 +1,289 @@
+.. from: http://pypix.com/django/tdd-in-django/
+   测试驱动开发在django中的实例
+   date: 2013-12-09 21:16
+
+Let's TDD a Simple App in Django
+========================================
+
+In this tutorial, I will present an end-to-end example of a simple application make strictly with TDD in Django. I will walk you through each step, one at a time, while explaining the decisions I make in order to get the task done. The example closely follows the rules of TDD: write tests, write code, refactor.
+
+Introduction to TDD and Unittests
+--------------------------------------
+
+TDD is a "test-first" technique to develop and design software. It is almost always used in agile teams, being one of the core tools of agile software development. TDD was first defined and introduced to the professional community by Kent Bech in 2002. Since then, it has become an accepted - and recommended - technique in everyday programming.
+
+TDD has three core rules:
+#. You are not allowed to write any production code, if there is not a failing teset to warrant it.
+#. You are not allowed to write more of a unit test than is strictly necessary to make it fail. Not compiling/running is failing.
+#. You are not allowed to write more production code than is strictly necessary to make the failing test pass.
+
+The unittest module provides a rich set of tools for constructing and running tests.
+
+The main methods that we make use of in unit testing for Python are:
+
+    assert - base assert allowing you to write your own assertions.
+
+    assertEqual(a, b) - check a and b are equal
+
+    assertNotEqual(a, b) - check a and b are not equal
+
+    assertIn(a, b) - check that a is in the item b
+
+    assertNotIn(a, b) - check that a is not in the item b
+
+    assertFalse(a) - check that the values of a is False
+
+    assertTrue(a) - check the value of a is True
+
+    assertIsInstance(a, TYPE) - check that a is of type "TYPE"
+
+    assertRaises(ERROR, a, args) - check that when a is called with args that it raises ERROR
+
+There are certainly more methods available to us, which you can view `Python Unit Test Doc's`_ - but, in my experience, the ones listed above are among the most frequently used.
+
+Starting the Project and Creating the First Test
+---------------------------------------------------------
+
+We are going to use the latest version of Django(1.6) which supports Python 2.7 to 3.3. Before proceeding, make sure that you have the apt version by executing ``python -v`` in the terminal. Note that Python 2.7.5 is preferred. All throughout this tutorial, we'll use pip as our packages manager and virtualenv to set up the Virtual Environments. TO install these, fire up the terminal and execute the following commands as root:
+
+.. code-block:: python
+   :linenos:
+
+   curl http://python-distribute.org/distribute_setup.py | sudo python
+   curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | sudo python
+   sudo pip install virtualenv
+
+To set up our Django development environment, we'll start off by creating a Virtual Environment. Execute the following commands in the terminal (preferably inside your development directory)
+
+.. code-block:: python
+   :linenos:
+
+   virtualenv --no-site-packages tdd_env
+   source tdd_new/bin/activate
+
+With our Virtual Environment, set up and activated (your command prompt should be changed to reflect the environment's name), let's move on to installing the dependencies for the project. Apart from Django, we'll be using South to handle the database migrations, We'll use pip to install both of them. Do note that from here on, we'll be doing everything inside the virtualenv. As such, ensure that it's activated before proceeding.
+
+.. code-block:: python
+   :linenos:
+
+   pip install Django South
+
+With all of the dependencies set up, we'll ready to move on to creating a new Django Project.
+
+We'll begin by creating a new Django project and our app. cd into your preferred directory and run:
+
+.. code-block:: python
+   :linenos:
+
+   django-admin.py startproject tdd
+   cd tdd
+   django-admin.py startapp app
+
+There should be a main folder for source classes, and a Tests/ file, naturally, for the test.
+
+Lets write our first test
+-----------------------------------------
+
+.. code-block:: python
+   :linenos:
+
+   from django.test import TestCase
+   from app.models import Articles
+
+   class ArticleModelTest(TestCase):
+       def test_creating_a_new_article(self):
+           article = Articles()
+           print article
+
+We have imported the TestCase from the Django tests which makes use of the Python's UnitTest class.
+
+Remember! We are not allowted to write any production code before a failing test-not even a class declartion! That's why I wrote the first simple test above, called test_creating_a_new_articls. I consider it to be a nice opportunity to think about the model we are going to create. Do we need a model? What should we call it? Should it be a simple one or should it have many foreign keys?
+
+You can run the tests like this from your terminal
+
+.. code-block:: python
+   :linenos:
+
+   python manage.py test app
+
+When you run the test above, you will receive a Import Error message, like the following:
+
+.. code-block:: python
+   :linenos:
+
+   ImportError: cannot import name Articles
+
+Yikes! We should do something about it. Create an empty Article model in the projects's models.py.
+
+.. code-block:: python
+   :linenos:
+
+   from django.db import models
+
+   class Articles(models.Model):
+       pass
+
+That's it. If you run the test again, it passes. Congratulations on your first test!
+
+.. code-block:: python
+   :linenos:
+
+   Ran 1 test in 0.001s
+
+   OK
+   Destroying test database for alias 'default'...
+
+The First Real Test
+-------------------------------
+
+So we have our project set up and running; now we need to think about our first *real* test.
+
+What would be the simplest...the dumbest...the most basic test that would make our current production code fail? Well, the first thing that comes to mind is *"Lets create the models for our app, and expect the result to be saved in the database?"* This sounds doable; Let's write the test.
+
+.. code-block:: python
+   :linenos:
+
+   from django.test import TestCase
+   from app.models import Articles
+       def test_creating_a_new_article(self):
+           article = Articles()
+           article.title = "This is title"
+           article.body = "This is body"
+           article.save()
+
+           articles_in_database = Articles.objects.all()
+           self.assertEquals(len(articles_in_database), 1)
+           only_article_in_database = articles_in_database[0]
+           self.assertEquals(only_article_in_database, article)
+
+           self.assertEquals(only_article_in_database.title, "This is title")
+           self.assertEquals(only_article_in_database.body, "This is body")
+
+***Note: All tests names should start with the word test.***
+
+Now, run the tests again and see what fails it now. The failing result is as shown
+
+.. code-block:: python
+   :linenos:
+
+   OperationalError: no such table: app_articles
+
+What we are doing here, we are creating an object of our article class and assigning the title and body variables to the object and saving it in database. Then we are querying all the articles from the database using.
+
+Articles.objects.all() which will certainly return the first article we just created, then we are checking the various conditions if the article we created is the only article present in the database or already that database has some articles.
+
+Now to make our test pass, run the command syncdb to create the database. The terminal will prompt you for creating a superuser, enter the detail and then you are done with database but wait you haven't migratted your Article model yet. To do so, run this command in terminal.
+
+.. code-block:: python
+   :linenos:
+
+   python manage.py schemamigration app --initial
+
+Terminal will output someting like this
+
+.. code-block:: python
+   :linenos:
+
+   + Added model app.Articles
+   Created 0001_initial.py. You can now apply this migration with: ./manage.py migrate app
+
+Now run migrate command to migrate the model schema.
+
+.. code-block:: python
+   :linenos:
+
+   AttributeError: 'Articles' object has no attribute 'title'
+
+Add the title attribute to your models and again run migrations commands to ship the title attribute to the Article table in the database.
+
+.. code-block:: python
+   :linenos:
+
+   import random, string
+
+   class Articles(model.Model):
+        tile = models.CharField(max_length=140, default=random.choice(string.lowercase))
+
+Now run the migration command.
+
+.. code-block:: python
+   :linenos:
+
+   python manage.py schemamigration app --auto
+
+This time we have to pass --auto as the command line arguement which will pick up the changes in model automatically.
+
+.. code-block:: python
+   :linenos:
+
+   import random, string
+
+   class Articles(model.Model):
+        tile = models.CharField(max_length=140, default=random.choice(string.lowercase))
+
+On successful migration, running tests again won't shout for old AttributeError but it will shout for the another new AttributeError, which was obvious because we haven't yet declared body attribute in our Article model, add body attribute to Article model.
+
+Now our model looks something like this
+
+
+.. code-block:: python
+   :linenos:
+
+   import random, string
+   from django.core.urlresolvers import reverse
+   from django.db import models
+
+   class Articles(models.Model):
+        title = models.CharField(max_length=140, unique=True, default=random.choice(string.lowercase))
+        body = models.TextField(default=random.choice(string.lowercase))
+
+Dont forget to apply migrations whenever you modify your models. We are using the default values in the models to escape from the unwanted errors from south. Now run the tests again and this our tests pass. (If you are using IDE, green light will glow for test pass and red for test fail.)
+
+
+
+Right Here Waiting 
+===================================================
+
+| Oceans apart, day after day, 远隔重洋，日复一日， 
+| and I slowly go insane. 我慢慢地变得要失常。 
+| I hear you voice on the line, 电话里传来你的声音， 
+| But it doesn't stop the pain. 但这不能停止我的悲伤。 
+| If I see you next to never, 如果再也不能与你相见， 
+| How can we say forever? 又怎能说我们到永远？ 
+
+| Wherever you go, whatever you do, 无论你在何地，无论你做何事， 
+| I will be right here waiting for you; 我就在这里等候你。 
+| Whatever it takes, 不管怎么样， 
+| Or how my heart breaks, 不管我多哀伤， 
+| I will be right here waiting for you. 我就在这里等候你。 
+ 
+| I took for granted all the times 我一直认为 
+| That I thought would last somehow. 你我会情长义久。 
+| I hear the laughter, 我听见你的笑声 
+| I taste the tear, 我品尝眼泪， 
+| But I can't get near you now. 但此刻不能接近你。 
+| Oh,can't you see, baby, 哦，宝贝，难道你不懂 
+| You've got me going crazy? 你已使我发疯？ 
+| 
+| Wherever you go, whatever you do, 无论你在何地，无论你做何事， 
+| I will be right here waiting for you; 我就在这里等候你。 
+| Whatever it takes, 不管怎么样， 
+| Or how my heart breaks, 不管我多哀伤， 
+| I will be right here waiting for you. 我就在这里等候你。 
+
+| I wonder 我试问 
+| How we can survive this romance, 我们如何熬过这浪漫情。 
+| But in the end 但到最后 
+| If I'm with you 如果我与你同在 
+| I'll take the chance. 我要抓住这个机会。 
+| Oh,can't you see it,baby, 哦，宝贝，难道你不懂 
+| You've got me going crazy? 你已使我发疯？ 
+
+| Wherever you go, whatever you do, 无论你在何地，无论你做何事， 
+| I will be right here waiting for you; 我就在这里等候你。 
+| Whatever it takes, 不管怎么样， 
+| Or how my heart breaks, 不管我多哀伤， 
+| I will be right here waiting for you. 我就在这里等候你。 
+| Waiting for you. 等候你。
+
+.. _`Python Unit Test Doc's`: http://www.baidu.com

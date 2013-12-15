@@ -394,8 +394,8 @@ reStructuredText及Shpinx工具的学习记录
 
 ps: reStructuredText 和 RESTful 这两个拼写上都和 rest 相近， Sphinx （文档生成工具, http://sphinx.pocoo.org) 以及 Sphinx (全文搜索引擎, http://sphinxsearch.com/) 都叫Sphinx 。搜索的时候很容易混淆。
 
-02) Sphinx：
-===================
+02) Sphinx安装与简单使用：
+======================================
 
 Sphinx is a tool that makes it easy to create intelligent and beautiful documentation.
 
@@ -587,8 +587,13 @@ Sphinx 能够用不同的格式导出文档，但要求安装额外的库和软�
 
 Sphinx 改变了我对编写文档的看法。从一开始的毫无灵感，到现在能够轻易编制我的几乎所有的个人开源项目以及少数内部项目，我感到非常兴奋。使用 Sphinx 可轻松检索遗忘在您自己文档中的信息。
 
-03) ReText是基于python-qt4开发的rst文档编辑器，有实时预览功能
+03) ReText(Markdown and reStructuredText文档编辑器)
 ===============================================================
+
+ReText是基于python-qt4开发的rst文档编辑器，有实时预览功能，`ReText官方下载地址`_
+
+.. _`ReText官方下载地址`: http://sourceforge.net/p/retext/home/ReText/
+
 
 
 04) 其它工具rst2html5

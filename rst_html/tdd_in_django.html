@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Let’s TDD a Simple App in Django &mdash; sphinx01 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="sphinx01 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">sphinx01 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="let-s-tdd-a-simple-app-in-django">
+<h1>Let&#8217;s TDD a Simple App in Django<a class="headerlink" href="#let-s-tdd-a-simple-app-in-django" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, I will present an end-to-end example of a simple application make strictly with TDD in Django. I will walk you through each step, one at a time, while explaining the decisions I make in order to get the task done. The example closely follows the rules of TDD: write tests, write code, refactor.</p>
+<div class="section" id="introduction-to-tdd-and-unittests">
+<h2>Introduction to TDD and Unittests<a class="headerlink" href="#introduction-to-tdd-and-unittests" title="Permalink to this headline">¶</a></h2>
+<p>TDD is a &#8220;test-first&#8221; technique to develop and design software. It is almost always used in agile teams, being one of the core tools of agile software development. TDD was first defined and introduced to the professional community by Kent Bech in 2002. Since then, it has become an accepted - and recommended - technique in everyday programming.</p>
+<p>TDD has three core rules:
+#. You are not allowed to write any production code, if there is not a failing teset to warrant it.
+#. You are not allowed to write more of a unit test than is strictly necessary to make it fail. Not compiling/running is failing.
+#. You are not allowed to write more production code than is strictly necessary to make the failing test pass.</p>
+<p>The unittest module provides a rich set of tools for constructing and running tests.</p>
+<p>The main methods that we make use of in unit testing for Python are:</p>
+<blockquote>
+<div><p>assert - base assert allowing you to write your own assertions.</p>
+<p>assertEqual(a, b) - check a and b are equal</p>
+<p>assertNotEqual(a, b) - check a and b are not equal</p>
+<p>assertIn(a, b) - check that a is in the item b</p>
+<p>assertNotIn(a, b) - check that a is not in the item b</p>
+<p>assertFalse(a) - check that the values of a is False</p>
+<p>assertTrue(a) - check the value of a is True</p>
+<p>assertIsInstance(a, TYPE) - check that a is of type &#8220;TYPE&#8221;</p>
+<p>assertRaises(ERROR, a, args) - check that when a is called with args that it raises ERROR</p>
+</div></blockquote>
+<p>There are certainly more methods available to us, which you can view <a class="reference external" href="http://www.baidu.com">Python Unit Test Doc&#8217;s</a> - but, in my experience, the ones listed above are among the most frequently used.</p>
+</div>
+<div class="section" id="starting-the-project-and-creating-the-first-test">
+<h2>Starting the Project and Creating the First Test<a class="headerlink" href="#starting-the-project-and-creating-the-first-test" title="Permalink to this headline">¶</a></h2>
+<p>We are going to use the latest version of Django(1.6) which supports Python 2.7 to 3.3. Before proceeding, make sure that you have the apt version by executing <tt class="docutils literal"><span class="pre">python</span> <span class="pre">-v</span></tt> in the terminal. Note that Python 2.7.5 is preferred. All throughout this tutorial, we&#8217;ll use pip as our packages manager and virtualenv to set up the Virtual Environments. TO install these, fire up the terminal and execute the following commands as root:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">python</span><span class="o">-</span><span class="n">distribute</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">distribute_setup</span><span class="o">.</span><span class="n">py</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">python</span>
+<span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pypa</span><span class="o">/</span><span class="n">pip</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">python</span>
+<span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenv</span>
+</pre></div>
+</td></tr></table></div>
+<p>To set up our Django development environment, we&#8217;ll start off by creating a Virtual Environment. Execute the following commands in the terminal (preferably inside your development directory)</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">virtualenv</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span> <span class="n">tdd_env</span>
+<span class="n">source</span> <span class="n">tdd_new</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</td></tr></table></div>
+<p>With our Virtual Environment, set up and activated (your command prompt should be changed to reflect the environment&#8217;s name), let&#8217;s move on to installing the dependencies for the project. Apart from Django, we&#8217;ll be using South to handle the database migrations, We&#8217;ll use pip to install both of them. Do note that from here on, we&#8217;ll be doing everything inside the virtualenv. As such, ensure that it&#8217;s activated before proceeding.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">Django</span> <span class="n">South</span>
+</pre></div>
+</td></tr></table></div>
+<p>With all of the dependencies set up, we&#8217;ll ready to move on to creating a new Django Project.</p>
+<p>We&#8217;ll begin by creating a new Django project and our app. cd into your preferred directory and run:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">django</span><span class="o">-</span><span class="n">admin</span><span class="o">.</span><span class="n">py</span> <span class="n">startproject</span> <span class="n">tdd</span>
+<span class="n">cd</span> <span class="n">tdd</span>
+<span class="n">django</span><span class="o">-</span><span class="n">admin</span><span class="o">.</span><span class="n">py</span> <span class="n">startapp</span> <span class="n">app</span>
+</pre></div>
+</td></tr></table></div>
+<p>There should be a main folder for source classes, and a Tests/ file, naturally, for the test.</p>
+</div>
+<div class="section" id="lets-write-our-first-test">
+<h2>Lets write our first test<a class="headerlink" href="#lets-write-our-first-test" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+<span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">Articles</span>
+
+<span class="k">class</span> <span class="nc">ArticleModelTest</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_creating_a_new_article</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">article</span> <span class="o">=</span> <span class="n">Articles</span><span class="p">()</span>
+        <span class="k">print</span> <span class="n">article</span>
+</pre></div>
+</td></tr></table></div>
+<p>We have imported the TestCase from the Django tests which makes use of the Python&#8217;s UnitTest class.</p>
+<p>Remember! We are not allowted to write any production code before a failing test-not even a class declartion! That&#8217;s why I wrote the first simple test above, called test_creating_a_new_articls. I consider it to be a nice opportunity to think about the model we are going to create. Do we need a model? What should we call it? Should it be a simple one or should it have many foreign keys?</p>
+<p>You can run the tests like this from your terminal</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">test</span> <span class="n">app</span>
+</pre></div>
+</td></tr></table></div>
+<p>When you run the test above, you will receive a Import Error message, like the following:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="ne">ImportError</span><span class="p">:</span> <span class="n">cannot</span> <span class="kn">import</span> <span class="nn">name</span> <span class="nn">Articles</span>
+</pre></div>
+</td></tr></table></div>
+<p>Yikes! We should do something about it. Create an empty Article model in the projects&#8217;s models.py.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Articles</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</td></tr></table></div>
+<p>That&#8217;s it. If you run the test again, it passes. Congratulations on your first test!</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">Ran</span> <span class="mi">1</span> <span class="n">test</span> <span class="ow">in</span> <span class="mf">0.001</span><span class="n">s</span>
+
+<span class="n">OK</span>
+<span class="n">Destroying</span> <span class="n">test</span> <span class="n">database</span> <span class="k">for</span> <span class="n">alias</span> <span class="s">&#39;default&#39;</span><span class="o">...</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="the-first-real-test">
+<h2>The First Real Test<a class="headerlink" href="#the-first-real-test" title="Permalink to this headline">¶</a></h2>
+<p>So we have our project set up and running; now we need to think about our first <em>real</em> test.</p>
+<p>What would be the simplest...the dumbest...the most basic test that would make our current production code fail? Well, the first thing that comes to mind is <em>&#8220;Lets create the models for our app, and expect the result to be saved in the database?&#8221;</em> This sounds doable; Let&#8217;s write the test.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+<span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">Articles</span>
+    <span class="k">def</span> <span class="nf">test_creating_a_new_article</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">article</span> <span class="o">=</span> <span class="n">Articles</span><span class="p">()</span>
+        <span class="n">article</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;This is title&quot;</span>
+        <span class="n">article</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="s">&quot;This is body&quot;</span>
+        <span class="n">article</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="n">articles_in_database</span> <span class="o">=</span> <span class="n">Articles</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">articles_in_database</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">only_article_in_database</span> <span class="o">=</span> <span class="n">articles_in_database</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">only_article_in_database</span><span class="p">,</span> <span class="n">article</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">only_article_in_database</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="s">&quot;This is title&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">only_article_in_database</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="s">&quot;This is body&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p><strong>*Note: All tests names should start with the word test.*</strong></p>
+<p>Now, run the tests again and see what fails it now. The failing result is as shown</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">OperationalError</span><span class="p">:</span> <span class="n">no</span> <span class="n">such</span> <span class="n">table</span><span class="p">:</span> <span class="n">app_articles</span>
+</pre></div>
+</td></tr></table></div>
+<p>What we are doing here, we are creating an object of our article class and assigning the title and body variables to the object and saving it in database. Then we are querying all the articles from the database using.</p>
+<p>Articles.objects.all() which will certainly return the first article we just created, then we are checking the various conditions if the article we created is the only article present in the database or already that database has some articles.</p>
+<p>Now to make our test pass, run the command syncdb to create the database. The terminal will prompt you for creating a superuser, enter the detail and then you are done with database but wait you haven&#8217;t migratted your Article model yet. To do so, run this command in terminal.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">schemamigration</span> <span class="n">app</span> <span class="o">--</span><span class="n">initial</span>
+</pre></div>
+</td></tr></table></div>
+<p>Terminal will output someting like this</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">+</span> <span class="n">Added</span> <span class="n">model</span> <span class="n">app</span><span class="o">.</span><span class="n">Articles</span>
+<span class="n">Created</span> <span class="mo">0001</span><span class="n">_initial</span><span class="o">.</span><span class="n">py</span><span class="o">.</span> <span class="n">You</span> <span class="n">can</span> <span class="n">now</span> <span class="nb">apply</span> <span class="n">this</span> <span class="n">migration</span> <span class="k">with</span><span class="p">:</span> <span class="o">./</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">migrate</span> <span class="n">app</span>
+</pre></div>
+</td></tr></table></div>
+<p>Now run migrate command to migrate the model schema.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="ne">AttributeError</span><span class="p">:</span> <span class="s">&#39;Articles&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">&#39;title&#39;</span>
+</pre></div>
+</td></tr></table></div>
+<p>Add the title attribute to your models and again run migrations commands to ship the title attribute to the Article table in the database.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">string</span>
+
+<span class="k">class</span> <span class="nc">Articles</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+     <span class="n">tile</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">lowercase</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+<p>Now run the migration command.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">schemamigration</span> <span class="n">app</span> <span class="o">--</span><span class="n">auto</span>
+</pre></div>
+</td></tr></table></div>
+<p>This time we have to pass &#8211;auto as the command line arguement which will pick up the changes in model automatically.</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">string</span>
+
+<span class="k">class</span> <span class="nc">Articles</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+     <span class="n">tile</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">lowercase</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+<p>On successful migration, running tests again won&#8217;t shout for old AttributeError but it will shout for the another new AttributeError, which was obvious because we haven&#8217;t yet declared body attribute in our Article model, add body attribute to Article model.</p>
+<p>Now our model looks something like this</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">string</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Articles</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+     <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">lowercase</span><span class="p">))</span>
+     <span class="n">body</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">lowercase</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+<p>Dont forget to apply migrations whenever you modify your models. We are using the default values in the models to escape from the unwanted errors from south. Now run the tests again and this our tests pass. (If you are using IDE, green light will glow for test pass and red for test fail.)</p>
+</div>
+</div>
+<div class="section" id="right-here-waiting">
+<h1>Right Here Waiting<a class="headerlink" href="#right-here-waiting" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line">Oceans apart, day after day, 远隔重洋，日复一日，</div>
+<div class="line">and I slowly go insane. 我慢慢地变得要失常。</div>
+<div class="line">I hear you voice on the line, 电话里传来你的声音，</div>
+<div class="line">But it doesn&#8217;t stop the pain. 但这不能停止我的悲伤。</div>
+<div class="line">If I see you next to never, 如果再也不能与你相见，</div>
+<div class="line">How can we say forever? 又怎能说我们到永远？</div>
+</div>
+<div class="line-block">
+<div class="line">Wherever you go, whatever you do, 无论你在何地，无论你做何事，</div>
+<div class="line">I will be right here waiting for you; 我就在这里等候你。</div>
+<div class="line">Whatever it takes, 不管怎么样，</div>
+<div class="line">Or how my heart breaks, 不管我多哀伤，</div>
+<div class="line">I will be right here waiting for you. 我就在这里等候你。</div>
+</div>
+<div class="line-block">
+<div class="line">I took for granted all the times 我一直认为</div>
+<div class="line">That I thought would last somehow. 你我会情长义久。</div>
+<div class="line">I hear the laughter, 我听见你的笑声</div>
+<div class="line">I taste the tear, 我品尝眼泪，</div>
+<div class="line">But I can&#8217;t get near you now. 但此刻不能接近你。</div>
+<div class="line">Oh,can&#8217;t you see, baby, 哦，宝贝，难道你不懂</div>
+<div class="line">You&#8217;ve got me going crazy? 你已使我发疯？</div>
+<div class="line"><br /></div>
+<div class="line">Wherever you go, whatever you do, 无论你在何地，无论你做何事，</div>
+<div class="line">I will be right here waiting for you; 我就在这里等候你。</div>
+<div class="line">Whatever it takes, 不管怎么样，</div>
+<div class="line">Or how my heart breaks, 不管我多哀伤，</div>
+<div class="line">I will be right here waiting for you. 我就在这里等候你。</div>
+</div>
+<div class="line-block">
+<div class="line">I wonder 我试问</div>
+<div class="line">How we can survive this romance, 我们如何熬过这浪漫情。</div>
+<div class="line">But in the end 但到最后</div>
+<div class="line">If I&#8217;m with you 如果我与你同在</div>
+<div class="line">I&#8217;ll take the chance. 我要抓住这个机会。</div>
+<div class="line">Oh,can&#8217;t you see it,baby, 哦，宝贝，难道你不懂</div>
+<div class="line">You&#8217;ve got me going crazy? 你已使我发疯？</div>
+</div>
+<div class="line-block">
+<div class="line">Wherever you go, whatever you do, 无论你在何地，无论你做何事，</div>
+<div class="line">I will be right here waiting for you; 我就在这里等候你。</div>
+<div class="line">Whatever it takes, 不管怎么样，</div>
+<div class="line">Or how my heart breaks, 不管我多哀伤，</div>
+<div class="line">I will be right here waiting for you. 我就在这里等候你。</div>
+<div class="line">Waiting for you. 等候你。</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Let&#8217;s TDD a Simple App in Django</a><ul>
+<li><a class="reference internal" href="#introduction-to-tdd-and-unittests">Introduction to TDD and Unittests</a></li>
+<li><a class="reference internal" href="#starting-the-project-and-creating-the-first-test">Starting the Project and Creating the First Test</a></li>
+<li><a class="reference internal" href="#lets-write-our-first-test">Lets write our first test</a></li>
+<li><a class="reference internal" href="#the-first-real-test">The First Real Test</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#right-here-waiting">Right Here Waiting</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tdd_in_django.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">sphinx01 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, chengl6500.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

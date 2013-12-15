@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Typical Workflow &mdash; sphinx01 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="sphinx01 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">sphinx01 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="typical-workflow">
+<h1>Typical Workflow<a class="headerlink" href="#typical-workflow" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
+<p>Emacs-for-python pacakage is configured to be upstarted quickly, you shouln&#8217;t spend your time in configuring and tweaking your emacs environment (and searching for appropriate extensions).</p>
+<p>Most of the selected extensions are &#8220;intelligent&#8221;, they aren&#8217;t intrusive and they don&#8217;t touch your focus.</p>
+<p>After installing the package (it&#8217;s a matter of load-file), fire up emacs.</p>
+</div>
+<div class="section" id="starting">
+<h2>Starting<a class="headerlink" href="#starting" title="Permalink to this headline">¶</a></h2>
+<p>To open a new file you can proceed as usual, with the <cite>C-x C-f</cite> keystrokes, you would see the ido-mode prompt with fuzzy completion enabled, it&#8217;s fairly intuitive, type some keywords and you will be searching throught files. It remembers your choices and prompt you for the most used files.</p>
+</div>
+<div class="section" id="editing">
+<h2>Editing<a class="headerlink" href="#editing" title="Permalink to this headline">¶</a></h2>
+<p>After opening your python module you will have automatically activated some useful things:</p>
+<ul class="simple">
+<li>flymake error checking, errors are displayed automatically with a red line, hover your mouse over the line to see an error message.</li>
+<li>auto-completion it complete words in the current buffers, unfortunately I haven&#8217;t found a good way to include &#8220;intellisense&#8221;.</li>
+</ul>
+<p>There are also editing facilities:</p>
+<ul class="simple">
+<li><em>snippets</em> with yasnippet (with modified, more python-compliant snippets). Type the start of a word, like &#8220;class&#8221;, press TAB and it expands itself in a snippet. It&#8217;s integrated with auto-completion, they don&#8217;t collide.</li>
+<li><em>autoclosing brackets</em>, type a bracket, it will be closed automatically. Select a region of text, type an opening bracket, the text is wrapped between brackets automatically. You can&#8217;t live without that.</li>
+<li><em>open-next-line</em>: type <cite>C-o</cite> inside a sentence, you will be teleported to the next line, with the correct indentation.</li>
+</ul>
+<p>After editing the files you may want to execute the code.  I would not recommend the execution facilities of &#8220;python-mode&#8221;, instead I suggest you to act in this way:</p>
+<div class="highlight-python"><pre>M-x compile
+&lt;interactive&gt; python whathever_test_to_do</pre>
+</div>
+<p>In this way the tracebacks are automatically highlighted and you can re-run easily the command (Be careful to the working directory!)</p>
+<p>Very Good! Test are all green, you may want to register your changes to version control:</p>
+<div class="highlight-python"><pre>C-x v v</pre>
+</div>
+<p>This will select the right thing to do, if the file is unregistered, it will be registered, else it will commit and prompt you for logging message. If you have other needs, I suggest you to spawn a shell and use it.</p>
+</div>
+<div class="section" id="others">
+<h2>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h2>
+<p>Need to do 2+2?:</p>
+<div class="highlight-python"><pre>M-c q</pre>
+</div>
+<p>Will prompt you for an expression, the result is in the kill ring, you can yank it in the text with <cite>C-y</cite></p>
+<p>Cut/Copy/Paste from external applications is easy, the keys are remapped with the <cite>super</cite> key:</p>
+<div class="highlight-python"><pre>Cut:   s-x
+Copy:  s-c
+Paste: s-v</pre>
+</div>
+<p>The buffer are improved with the same ido interface plus Ibuffer, it&#8217;s much colorful and has nice sorting functionalities.</p>
+<p>Can&#8217;t go with <cite>M-Tab</cite> keys (the desktop keep switching application)?  No problem it&#8217;s remapped with <cite>C-Tab</cite>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Typical Workflow</a><ul>
+<li><a class="reference internal" href="#intro">Intro</a></li>
+<li><a class="reference internal" href="#starting">Starting</a></li>
+<li><a class="reference internal" href="#editing">Editing</a></li>
+<li><a class="reference internal" href="#others">Others</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/emacs_for_python.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">sphinx01 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, chengl6500.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -4,7 +4,7 @@
 tmux和tmuxp的学习笔记
 ===========================================
 
-01) tmux
+01) tmux(终端复用软件)
 ========================
 
 01-01) 安装tmux
@@ -65,57 +65,62 @@ tmux依赖 ``libevent`` 和 ``ncurses`` 开发包：
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 tmux may be controlled from an attached client by using a key combination of a prefix key, ‘C-b’ (Ctrl-b) by default, followed by a command.
-The default command key bindings are::
+The default command key bindings are:
 
-   C-b         Send the prefix key (C-b) through to the application.
-   C-o         Rotate the panes in the current window forwards.
-   C-z         Suspend the tmux client.
-   !           Break the current pane out of the window.
-   "           Split the current pane into two, top and bottom.
-   #           List all paste buffers.
-   %           Split the current pane into two, left and right.
-   &           Kill the current window.
-   ’           Prompt for a window index to select.
-   ,           Rename the current window.
-   -           Delete the most recently copied buffer of text.
-   .           Prompt for an index to move the current window.
-   0 to 9      Select windows 0 to 9.
-   :           Enter the tmux command prompt.
-   ;           Move to the previously active pane.
-   =           Choose which buffer to paste interactively from a list.
-   ?           List all key bindings.
-   D           Choose a client to detach.
-   [           Enter copy mode to copy text or view the history.
-   ]           Paste the most recently copied buffer of text.
-   c           Create a new window.
-   d           Detach the current client.
-   f           Prompt to search for text in open windows.
-   i           Display some information about the current window.
-   l           Move to the previously selected window.
-   n           Change to the next window.
-   o           Select the next pane in the current window.
-   p           Change to the previous window.
-   q           Briefly display pane indexes.
-   r           Force redraw of the attached client.
-   s           Select a new session for the attached client interactively.
-   L           Switch the attached client back to the last session.
-   t           Show the time.
-   w           Choose the current window interactively.
-   x           Kill the current pane.
-   {           Swap the current pane with the previous pane.
-   }           Swap the current pane with the next pane.
-   ~           Show previous messages from tmux, if any.
-   Page Up     Enter copy mode and scroll one page up.
-   Up, Down
-   Left, Right  Change to the pane above, below, to the left, or to the right of the current pane.
-   M-1 to M-5  Arrange panes in one of the five preset layouts: even-horizontal, even-vertical, main-horizontal, main-verti-cal, or tiled.
-   M-n         Move to the next window with a bell or activity marker.
-   M-o         Rotate the panes in the current window backwards.
-   M-p         Move to the previous window with a bell or activity marker.
-   C-Up, C-Down
-   C-Left, C-Right  Resize the current pane in steps of one cell.
-   M-Up, M-Down
-   M-Left, M-Right  Resize the current pane in steps of five cells.
+============  ==============================================================
+Short cut     Action
+------------  --------------------------------------------------------------
+``C-b``       Send the prefix key (C-b) through to the application.
+``C-o``       Rotate the panes in the current window forwards.
+``C-z``       Suspend the tmux client.
+``!``         Break the current pane out of the window.
+``"``         Split the current pane into two, top and bottom.
+``#``         List all paste buffers.
+``%``         Split the current pane into two, left and right.
+``&``         Kill the current window.
+``’``         Prompt for a window index to select.
+``,``         Rename the current window.
+``-``         Delete the most recently copied buffer of text.
+``.``         Prompt for an index to move the current window.
+``0 to 9``    Select windows 0 to 9.
+``:``         Enter the tmux command prompt.
+``;``         Move to the previously active pane.
+``=``         Choose which buffer to paste interactively from a list.
+``?``         List all key bindings.
+``D``         Choose a client to detach.
+``[``         Enter copy mode to copy text or view the history.
+``]``         Paste the most recently copied buffer of text.
+``c``         Create a new window.
+``d``         Detach the current client.
+``f``         Prompt to search for text in open windows.
+``i``         Display some information about the current window.
+``l``         Move to the previously selected window.
+``n``         Change to the next window.
+``o``         Select the next pane in the current window.
+``p``         Change to the previous window.
+``q``         Briefly display pane indexes.
+``r``         Force redraw of the attached client.
+``s``         Select a new session for the attached client interactively.
+``L``         Switch the attached client back to the last session.
+``t``         Show the time.
+``w``         Choose the current window interactively.
+``x``         Kill the current pane.
+``{``         Swap the current pane with the previous pane.
+``}``         Swap the current pane with the next pane.
+``~``         Show previous messages from tmux, if any.
+``PgUp``      Enter copy mode and scroll one page up.
+``PgDown``    like above
+============  ==============================================================
+
+Left, Right  Change to the pane above, below, to the left, or to the right of the current pane.
+M-1 to M-5  Arrange panes in one of the five preset layouts: even-horizontal, even-vertical, main-horizontal, main-verti-cal, or tiled.
+M-n         Move to the next window with a bell or activity marker.
+M-o         Rotate the panes in the current window backwards.
+M-p         Move to the previous window with a bell or activity marker.
+C-Up, C-Down
+C-Left, C-Right   Resize the current pane in steps of one cell.
+M-Up, M-Down
+M-Left, M-Right    Resize the current pane in steps of five cells.
 
 Key bindings may be changed with the bind-key and unbind-key commands.
 可以使用命令bind-key和unbind-key来修改按键对应的命令。
@@ -135,34 +140,52 @@ tmux使用C/S模型构建，主要包括以下单元模块：
 操作: 类似各种平铺式窗口管理器，tmux使用键盘操作，常用快捷键包括： 
 Ctrl+b  激活控制台；此时以下按键生效 
 
-系统操作::
+系统操作:
 
+==========  ================================================================
+Short Key   Action
+----------  ----------------------------------------------------------------
     ?       列出所有快捷键；按q返回
-    d       脱离当前会话；这样可以暂时返回Shell界面，输入tmux attach能够重新进入之前的会话 
-    D       选择要脱离的会话；在同时开启了多个会话时使用Ctrl+z 挂起当前会话
+    d       脱离当前会话,这样可以暂时返回Shell界面
+            输入tmux attach能够重新进入之前的会话 
+    D       选择要脱离的会话
+            在同时开启了多个会话时使用Ctrl+z 挂起当前会话
     r       强制重绘未脱离的会话
     s       选择并切换会话；在同时开启了多个会话时使用
-    :       进入命令行模式；此时可以输入支持的命令，例如kill-server可以关闭服务器
+    :       进入命令行模式
+            此时可以输入支持的命令，例如kill-server可以关闭服务器
     [       进入复制/卷屏模式；此时的操作与emacs/vi相同
             （在配置文件中set-option -g status-keys emacs/vi）
             按q/<ENTER>退出：q为直接退出，<ENTER>为复制标记块并退出;
-            emacs: Ctrl+n/Ctrl+p/Ctrl+f/Ctrl+b移动光标，Ctrl+@开始标记（开始复制），Alt+w/Ctrl+w结束标记（复制结束）并退出复制模式; 
-            vim: h/j/k/l移动光标，<SPACE>开始标记（复制开始），<ENTER>结束标记（复制结束）并退出复制模式 
-    ]       进入粘贴模式（C-b ]粘贴）将一个会话中的内容复制粘贴到另一个窗口中。但是不能将会话中的内容复制到第3方程序中。只能在另一个会话中开启vim或者emacs终端下的编辑程序，然后用Ctrl-b ]进行粘贴，然后在会话中的终端下编译程序中进行保存。
+            emacs: Ctrl+n/Ctrl+p/Ctrl+f/Ctrl+b移动光标
+            Ctrl+@开始标记（开始复制）
+            Alt+w/Ctrl+w结束标记（复制结束）并退出复制模式; 
+            vim: h/j/k/l移动光标，<SPACE>开始标记
+            <ENTER>结束标记并退出复制模式 
+    ]       进入粘贴模式（C-b ]粘贴）
+            将一个会话中的内容复制粘贴到另一个窗口中。
+            但是不能将会话中的内容复制到第3方程序中。
+            只能在另一个会话中开启vim或者emacs终端下的编辑程序
+            然后用Ctrl-b ]进行粘贴，然后在会话中的终端下编译程序中进行保存。
     ~       列出提示信息缓存；其中包含了之前tmux返回的各种提示信息
+==========  ================================================================
 
-窗口操作::
+窗口操作:
 
-    c       创建新窗口 
-    &       关闭当前窗口 
-    数字键   切换至指定窗口 
-    p       切换至上一窗口 
-    n       切换至下一窗口 
-    l       在前后两个窗口间互相切换 
-    w       通过窗口列表切换窗口 
-    ,       重命名当前窗口；这样便于识别 
-    .       修改当前窗口编号；相当于窗口重新排序 
-    f       在所有窗口中查找指定文本 
+===========  ============================================
+
+Short-key      Action
+c              创建新窗口 
+&              关闭当前窗口 
+0-9数字        切换至指定窗口 
+p              切换至上一窗口 
+n              切换至下一窗口 
+l              在前后两个窗口间互相切换 
+w              通过窗口列表切换窗口 
+,              重命名当前窗口；这样便于识别 
+.              修改当前窗口编号；相当于窗口重新排序 
+f              在所有窗口中查找指定文本 
+===========  ============================================
 
 面板操作::
 
@@ -228,8 +251,8 @@ M-] :break-pane    #同上，将当前面板分离到新窗口中
 
 M-] :join-pane -s 2 -t 1   #将当前窗口附加到某个会话(-s 2)下的某个窗口(-t 1)
 
-02) tmuxp
-===============
+02) tmuxp(tmux的会话管理工具)
+====================================
 
 tmux session manager in python - json, yaml, python API http://tmuxp.readthedocs.org/en/latest/
 https://github.com/tony/tmuxp
