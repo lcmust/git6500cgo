@@ -53,7 +53,7 @@
 <h1>assembly language for Intel X86 (Linux)<a class="headerlink" href="#assembly-language-for-intel-x86-linux" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>01) 32位处理器所含寄存器：<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>4个数据寄存器EAX EBX ECX EDX:</p>
+<p>4个 <strong>数据寄存器</strong> EAX EBX ECX EDX:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>EAX 通常为累加器，用于乘除和输入输出等</li>
@@ -62,21 +62,21 @@
 <li>EDX 数据寄存器，可作为默认的操作数参与运算，或者存放I/O的端口地址。</li>
 </ol>
 </div></blockquote>
-<p>2个变址寄存器ESI EDI:</p>
+<p>2个 <strong>变址寄存器</strong> ESI EDI:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>ESI　存放存储单元在段内的偏移量（源）</li>
 <li>EDI  存放存储单元在段内的偏移量（目的操作数）</li>
 </ol>
 </div></blockquote>
-<p>2个指针寄存器ESP EBP:</p>
+<p>2个 <strong>指针寄存器</strong> ESP EBP:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>EBP 帧指针（Base Pointer）存放堆栈内存储单元的偏移量，用于直接存取堆栈中的数据</li>
 <li>ESP 堆栈指针（Stack Pointer）只用于访问堆栈的栈顶</li>
 </ol>
 </div></blockquote>
-<p>6个段寄存器 CS DS ES SS FS GS:</p>
+<p>6个 <strong>段寄存器</strong> CS DS ES SS FS GS:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>CS 代码段的段值</li>
@@ -88,22 +88,24 @@
 </ol>
 </div></blockquote>
 <p>前4个CS DS ES SS段寄存器在实模式下，用于内存单元的逻辑地址取值“段值：偏移量“，在保护模式下，装入寄存器的不再是段值，而是称为选择子&#8221;Selector&#8221;的值。</p>
-<p>1个指令指针寄存器EIP: 存放下一条指令在代码段中的偏移量。</p>
-<p>1个标志寄存器EFlags:</p>
+<p>1个 <strong>指令指针寄存器</strong> EIP: 存放下一条指令在代码段中的偏移量。</p>
+<p>1个 <strong>标志寄存器</strong> EFlags:</p>
 <blockquote>
-<div><p>运算结果标志位：</p>
+<div><p><em>运算结果标志位</em> ：</p>
 <ol class="arabic simple">
 <li>进位标志CF(Carry Flag)用来反映运算是否产生进位或借位。如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0。</li>
 <li>奇偶标志PF(Parity Flag)用于反映运算结果中“1”的个数的奇偶性。如果“1”的个数为偶数，则PF的值为1，否则其值为0。利用PF可进行奇偶校验检查，或产生奇偶校验位。在数据传送过程中，为了提供传送的可靠性，如果采用奇偶校验的方法，就可使用该标志位。</li>
-<li>辅助进位标志AF(Auxiliary Carry Flag)在发生下列情况时，辅助进位标志AF的值被置为1，否则其值为0：
-#. 在字操作时，发生低字节向高字节进位或借位时；
-#. 在字节操作时，发生低4位向高4位进位或借位时。</li>
+<li>辅助进位标志AF(Auxiliary Carry Flag)在发生下列情况时，辅助进位标志AF的值被置为1，否则其值为0：<ol class="arabic">
+<li>在字操作时，发生低字节向高字节进位或借位时；</li>
+<li>在字节操作时，发生低4位向高4位进位或借位时。</li>
+</ol>
+</li>
 <li>零标志ZF(Zero Flag)零标志ZF用来反映运算结果是否为0。如果运算结果为0，则其值为1，否则其值为0。在判断运算结果是否为0时，可使用此标志位。</li>
 <li>符号标志SF(Sign Flag)符号标志SF用来反映运算结果的符号位，它与运算结果的最高位相同。在微机系统中，有符号数采用补码表示法，所以，SF也就反映运算结果的正负号。运算结果为正数时，SF的值为0，否则其值为1。</li>
 <li>溢出标志OF(Overflow Flag)溢出标志OF用于反映有符号数加减运算所得结果是否溢出。如果运算结果超过当前运算位数所能表示的范围，则称为溢出，OF的值被置为1，否则，OF的值被清为0。</li>
 </ol>
 <p>对以上6个运算结果标志位，在一般编程情况下，标志位CF、ZF、SF和OF的使用频率较高，而标志位PF和AF的使用频率较低。</p>
-<p>状态控制标志位：</p>
+<p><em>状态控制标志位</em> ：</p>
 <ol class="arabic simple">
 <li>追踪标志TF(Trap Flag)当追踪标志TF被置为1时，CPU进入单步执行方式，即每执行一条指令，产生一个单步中断请求。这种方式主要用于程序的调试。</li>
 <li>中断允许标志IF(Interrupt-enable Flag)用来决定CPU是否响应CPU外部的可屏蔽中断发出的中断请求。但不管该标志为何值，CPU都必须响应CPU外部的不可屏蔽中断所发出的中断请求，以及CPU内部产生的中断请求。具体规定如下：
@@ -112,7 +114,7 @@
 CPU的指令系统中也有专门的指令来改变标志位IF的值。</li>
 <li>方向标志DF(Direction Flag)用来决定在串操作指令执行时有关指针寄存器发生调整的方向。</li>
 </ol>
-<p>32位标志寄存器增加的标志位：</p>
+<p><em>32位标志寄存器增加的标志位</em> ：</p>
 <ol class="arabic simple">
 <li>I/O特权标志IOPL(I/O Privilege Level)I/O特权标志用两位二进制位来表示，也称为I/O特权级字段。该字段指定了要求执行I/O指令的特权级。如果当前的特权级别在数值上小于等于IOPL的值，那么，该I/O指令可执行，否则将发生一个保护异常。</li>
 <li>嵌套任务标志NT(Nested Tash)套任务标志NT用来控制中断返回指令IRET的执行。具体规定如下：
@@ -124,20 +126,21 @@ CPU的指令系统中也有专门的指令来改变标志位IF的值。</li>
 </div></blockquote>
 </div>
 <div class="section" id="id2">
-<h2>02) 汇编语言函数调用时的栈与帧<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>02) 函数调用时的栈帧变化<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>函数调用时，先用push指令把参数压入栈，然后call指令调用函数。call指令包含将一个返回地址（即call指令的下一条指令的地址）压入堆栈的动作。
-每个函数体都由如下指令开始:
-|     push %ebp;
-|     mov %esp %ebp;</p>
+每个函数体都由如下指令开始:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">push</span> <span class="o">%</span><span class="n">ebp</span><span class="p">;</span>
+<span class="n">mov</span> <span class="o">%</span><span class="n">esp</span> <span class="o">%</span><span class="n">ebp</span><span class="p">;</span>
+</pre></div>
+</div>
 <p>即程序在执行一个函数时，首先把帧寄存器%ebp压入堆栈进行保护；然后把栈顶地址寄存器%esp中的地址值赋给帧基地址寄存器%ebp；将栈顶地址作为子函数的帧基址。帧寄存器%ebp作为子函数的栈基地址（以此地址向下偏移一定长度来作为子函数中的变量存储地址）。</p>
 <p>栈是一种特殊的数据结构，遵循&#8221;先进后出&#8221;的原则，通过push操作把数据压入栈顶（栈顶地址自减形成新的栈顶），通过pop操作将栈顶数据弹出（同时栈顶地址自加形成新的栈顶），栈顶地址是从高至低的方向增长。</p>
 <p>以%ebp帧基地址为基准，向上（栈底方向）是函数的返回地址、调用者传递给被调用函数的参数；向下（栈顶方向）是函数局部变量(<tt class="docutils literal"><span class="pre">sub</span>&nbsp;&nbsp;&nbsp; <span class="pre">$0x10,%esp</span></tt>) 这条命令一般紧接到上面的2条指令之后，为函数的局部变量分配地址空间)；栈中保存的%ebp地址为上一层函数调用时的EBP值，在本级函数（被调用者）返回上一层函数（调用者）时会恢复到EBP帧指针寄存器中:</p>
-<div class="highlight-python"><pre> push %ebp;
- mov %esp %ebp;
- sub $0x10, %esp;
-
-函数P调用Q时，Q的参数是放在P的帧中，且P中的下一条指令地址被压入栈中，形成P的栈帧的末尾。Q的栈帧从保存帧指针EBP的位置开始(``push %ebp; mov %esp %ebp``)，后面是Q中的变量地址空间(``sub $0x10, %esp``)。大多数信息的访问都是相对于帧指针(%ebp)的。如果函数需要返回整数或指针的话，用寄存器%eax来保存返回值。</pre>
+<div class="highlight-python"><pre>push %ebp;
+mov %esp %ebp;
+sub $0x10, %esp;</pre>
 </div>
+<p>函数P调用Q时，Q的参数是放在P的帧中，且P中的下一条指令地址被压入栈中，形成P的栈帧的末尾。Q的栈帧从保存帧指针EBP的位置开始(<tt class="docutils literal"><span class="pre">push</span> <span class="pre">%ebp;</span> <span class="pre">mov</span> <span class="pre">%esp</span> <span class="pre">%ebp</span></tt>)，后面是Q中的变量地址空间(<tt class="docutils literal"><span class="pre">sub</span> <span class="pre">$0x10,</span> <span class="pre">%esp</span></tt>)。大多数信息的访问都是相对于帧指针(%ebp)的。如果函数需要返回整数或指针的话，用寄存器%eax来保存返回值。</p>
 <dl class="docutils">
 <dt>指令push %ebp的行为等价于这2条指令:</dt>
 <dd>subl $4, %esp       #栈顶地址减4
@@ -168,7 +171,7 @@ addl $4, %esp      #栈顶地址加4</p>
 <h3>03-01) d7s3下汇编学习实例<a class="headerlink" href="#d7s3" title="Permalink to this headline">¶</a></h3>
 <p>汇编源代码文件:</p>
 <div class="highlight-python"><pre># filename: csapp/asm_hello.s
-# form: http://www.ibm.com/developerworks/cn/linux/l-assembly/
+# from: http://www.ibm.com/developerworks/cn/linux/l-assembly/
 # compile: as -o asm_hello.o asm_hello.s
 # link: ld -s -o asm_hello asm_hello.o
 # run: ./asm_hello
@@ -297,7 +300,7 @@ sudo apt-get install ddd ddd-doc</p>
   <ul>
 <li><a class="reference internal" href="#">assembly language for Intel X86 (Linux)</a><ul>
 <li><a class="reference internal" href="#id1">01) 32位处理器所含寄存器：</a></li>
-<li><a class="reference internal" href="#id2">02) 汇编语言函数调用时的栈与帧</a></li>
+<li><a class="reference internal" href="#id2">02) 函数调用时的栈帧变化</a></li>
 <li><a class="reference internal" href="#asm">03) asm编写与调试及相关工具的使用</a><ul>
 <li><a class="reference internal" href="#d7s3">03-01) d7s3下汇编学习实例</a></li>
 <li><a class="reference internal" href="#gdb">03-02) 用gdb调试</a></li>

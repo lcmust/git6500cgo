@@ -73,8 +73,8 @@
 </div></blockquote>
 <div class="section" id="rst">
 <h3>01-01) rst基本语法：<a class="headerlink" href="#rst" title="Permalink to this headline">¶</a></h3>
-<p>新建一个实例文件example.rst来了解一下Sphinx的语法：</p>
-<div class="highlight-python"><pre>love@db6sda8:/tmp/Sphinx$ vim example.rst
+<p>使用sphinx新建项目时自动创建的一个实例文件example.rst，内容如下：</p>
+<div class="highlight-python"><pre>love@db6sda8:/tmp/Sphinx$ cat example.rst
 
  This is a Title
 
@@ -117,66 +117,52 @@ gives you super user powers!</pre>
 <div class="section" id="id4">
 <h3>01-02) 标题<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>标题与其对应的标题标识符号相对应，标识符号至少与标题的长度相同（可以大于标题的长度）</li>
+<li>标题与其对应的 <strong>标题标识符</strong> 相对应，标识符至少与标题的长度相同（可以大于标题的长度）</li>
 <li>相同级别的标题使用统一(相同的）标识符号</li>
-<li>可以使用的标识符号有 = - ^ ~ &#8216; &#8221; _ : # &gt; &lt; 首先使用的被自动识别为1级标题，其后为2级，依次类推</li>
+<li>可以使用的标识符有 = - ^ ~ &#8216; &#8221; _ : # &gt; &lt; 首先使用的被自动识别为1级标题，其后为2级，依次类推</li>
 </ul>
-<p># 这是原文</p>
 <div class="highlight-python"><pre>文字下带双划线：是1级标题
-============================</pre>
-</div>
-<p>显示效果如下图</p>
-<div class="figure">
-<img alt="_images/title_1.png" src="_images/title_1.png" />
-</div>
-<p># 这是原文</p>
-<div class="highlight-python"><pre>文字下带单划线：是2级标题
--------------------------</pre>
-</div>
-<p>显示效果如下图</p>
-<div class="figure">
-<img alt="_images/title_2.png" src="_images/title_2.png" />
-</div>
-<p># 这是原文</p>
-<div class="highlight-python"><pre>文字下带^：是3级标题
+============================
+
+文字下带单划线：是2级标题
+-------------------------
+
+文字下带^：是3级标题
 ^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
 </div>
-<p>显示效果如下图</p>
+<p><em>上面是原文，显示结果如下</em></p>
 <div class="figure">
-<img alt="_images/title_3.png" src="_images/title_3.png" />
+<img alt="_images/title_123.png" src="_images/title_123.png" />
 </div>
 </div>
 <div class="section" id="id5">
 <h3>01-03) 列表<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>文字前加* 号：是无序号列表</p>
-<p># 这是原文</p>
 <div class="highlight-python"><pre>* 无序号的列表
 * 无序号的列表</pre>
 </div>
-<p>显示效果如下图</p>
+<p><em>上面是原文，显示结果如下</em></p>
 <ul class="simple">
 <li>无序号的列表</li>
 <li>无序号的列表</li>
 </ul>
 <p>文字前加#. 号：是带序号的列表</p>
-<p># 这是原文</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#. 带序号的列表</span>
 <span class="c">#. 带序号的列表</span>
 </pre></div>
 </div>
-<p>显示效果如下图</p>
+<p><em>上面是原文，显示结果如下</em></p>
 <ol class="arabic simple">
 <li>带序号的列表</li>
 <li>带序号的列表</li>
 </ol>
 <p>定义列表: *列表*</p>
-<p>#这是原文</p>
 <div class="highlight-python"><pre>*名词1*
  解释意义
 *名词2*
  解释意义</pre>
 </div>
-<p>显示效果如下</p>
+<p><em>上面是原文，显示结果如下</em></p>
 <dl class="docutils">
 <dt><em>名词1</em></dt>
 <dd>对应的解释意义1</dd>
@@ -201,8 +187,7 @@ gives you super user powers!</pre>
 <div class="section" id="id7">
 <h3>01-05) 块元素<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>块元素：具有相同缩进的元素为块元素，例如段落、表格。块元素使用一个空行结束，也就是一个垂直分隔符。连续多个空行时，作为一个空行处理。
-块元素也允许逐行增加缩进。</p>
-<p>#原文如下:</p>
+块元素也允许逐行增加缩进。(相同缩进的行处理为一行，不同缩进，无论缩进多少，都处理为一个缩进。)</p>
 <div class="highlight-python"><pre>第1行
 第2行
 
@@ -210,19 +195,17 @@ gives you super user powers!</pre>
 
    第4行</pre>
 </div>
-<p>(相同缩进的行处理为一行，不同缩进，无论缩进多少，都处理为一个缩进。)</p>
-<p>上面文本显示效果如下图：</p>
+<p><em>上面文本显示效果如下</em></p>
 <div class="figure">
 <img alt="_images/block_1.png" src="_images/block_1.png" />
 </div>
 <p>段落的缩进由其首行缩进决定。这种形式属于“定义列表”。</p>
 <p>段落间需要逐行向外缩进时（比如中文排版）：</p>
-<p>#原文如下:</p>
 <div class="highlight-python"><pre>   段落首行
 第2行向外缩进
 其它行和第2行相同</pre>
 </div>
-<p>显示效果如下：</p>
+<p><em>上面是原文，显示效果如下</em></p>
 <blockquote>
 <div><blockquote>
 <div>段落首行</div></blockquote>
@@ -230,18 +213,11 @@ gives you super user powers!</pre>
 <p>其它段的缩进同第2段</p>
 </div></blockquote>
 <p>段落中逐行向外缩进时使用“行块元素”来解决。在每一行起始处添加引导符|和缩进</p>
-<dl class="docutils">
-<dt>#原文如下::</dt>
-<dd><div class="first last line-block">
-<div class="line-block">
-<div class="line">段落首行</div>
+<div class="highlight-python"><pre>|    段落首行
+| 第2行向外缩进
+| 其它行和第2行相同</pre>
 </div>
-<div class="line">第2行向外缩进</div>
-<div class="line">其它行和第2行相同</div>
-</div>
-</dd>
-</dl>
-<p>显示效果如下：</p>
+<p><em>上面是原文，显示效果如下</em></p>
 <div class="line-block">
 <div class="line-block">
 <div class="line">段落首行</div>
@@ -273,7 +249,6 @@ gives you super user powers!</pre>
 <div class="section" id="id10">
 <h3>01-08) 注释<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>注释：注释是以“.. ”起始的超级块元素，注释中的内容只在.rst源文件中显示，实际在显示效果中并不显示。</p>
-<p>#注释原文如下:</p>
 <div class="highlight-python"><pre>.. 注释
   第2行
   第3行</pre>
@@ -287,14 +262,12 @@ gives you super user powers!</pre>
 <p>以|包裹的字串元素，例如 |别名|</p>
 <p>它们都需要在注释中进行解释：</p>
 <p>原文显示如下:</p>
-<div class="highlight-python"><pre># 这是原文
-.. _链接:http://w.x.z
+<div class="highlight-python"><pre>.. _链接:http://w.x.z
 .. ［脚注]xxxxxxxxx
 .. note::注意</pre>
 </div>
 <p>一些具有特殊功能的物件，比如索引contents::，被直接写到注释中去:</p>
-<div class="highlight-python"><pre># 这是原文
-.. image::图片
+<div class="highlight-python"><pre>.. image::图片
 .. contents::索引</pre>
 </div>
 </div>
