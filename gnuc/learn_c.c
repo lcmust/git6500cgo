@@ -20,6 +20,11 @@
 #define DEBUG_LOG_ENABLE
 #include "debug_log.h"
 
+typedef unsigned int INDEX;
+INDEX hash(const char *key, int table_size);
+INDEX hash2(const char *key, int table_size);
+INDEX hash3(const char *key, int table_size);
+
 int lookup_word(char *word, char *array[]);
 char *month_names[] = {
 	"January",
@@ -47,7 +52,7 @@ struct option longopts[] = {
 struct msg_help_ver msg = {
 	/* "help message:\n -f/--file <filename> File Name\n -t/--test Test Mode\n -h/--help Help Message\n -v/--version Show Version\n", */
 	"help message:\n\
- 	    -f/--file <filename> File Name\n			\
+ 	    -f/--file <filename> File Name\n\
  		-t/--test Test Mode\n\
  		-h/--help Help Message\n\
  		-v/--version Show Version\n",  // help
@@ -69,7 +74,7 @@ int main(int argc, char *argv[])
 
 	process_optlong(argc, argv, msg, &myargument, longopts);
 	print_arguments(myargument);
-	DEBUG_PRINT("%s", "****DEBUG_LOG_ENABLE****");
+	// DEBUG_PRINT("%s", "****DEBUG_LOG_ENABLE****");
 
 	if (!myargument.filename) {
 		myargument.filename = "/home/love/dic.txt";
@@ -106,7 +111,7 @@ int main(int argc, char *argv[])
 			if (month_no >= 0) {
 				printf("found at %2d(%s)\n", month_no, month_names[month_no]);
 			} else if (myargument.mode) {
-				printf("%d\t\n", month_no);
+				printf("%d\t%s\n", month_no, buf);
 			}
 		}
 	}
@@ -116,12 +121,26 @@ int main(int argc, char *argv[])
 	/* } */
 
 	mylib_func1();
-
-	printf("\nEND\n");
 	if (timer_stop (t1Ptr)) {
 		exit(-1);
 	}
-	printf("this program taked %ld useconds!\n",
+
+	int month_names_size = 12;
+	// DEBUG_PRINT("%s %d", "sizeof month_names", month_names_size);
+	int i;
+	for (i = 0; i < month_names_size; i++) {
+		unsigned int resu;
+		resu = hash3(month_names[i], sizeof(month_names[i]));
+		printf("hash(%d) = %x\n", i, resu);
+	}
+	int a = 23;
+	int b = 15;
+	printf("a=%d\t b=%d\n", a, b);
+	a = a ^ b;
+	b = b ^ a;
+	a = a ^ b;
+	printf("after swap with ^, a=%d\t b=%d\n", a, b);
+	printf("\nEND: this program taked %ld useconds!\n",
 		   timer_delta_useconds(t1Ptr));
 	exit(0);
 }
@@ -141,12 +160,25 @@ int lookup_word(char *word, char *array[])
 	return -1;
 }
 
-int abcd(void)
+INDEX hash(const char *key, int table_size)
 {
-	int a;
-	a = 200;
-	if ( a < 300) {
-		a++;
+	unsigned int hash_val = 0;
+	while (*key != '\0') {
+		hash_val += *key++;
 	}
-	return 0;
+	return hash_val % table_size;
+}
+
+INDEX hash2(const char *key, int table_size)
+{
+	return (key[0] + 27 * key[1] + 729 * key[2]) % table_size;
+}
+
+INDEX hash3(const char *key, int table_size)
+{
+	unsigned int hash_val = 0;
+	while (*key != '\0') {
+		hash_val = (hash_val << 5) + *key++;
+	}
+	return hash_val;
 }

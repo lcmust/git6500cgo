@@ -2,6 +2,7 @@
 # filename: learn_c.makefile
 # make -f learn_c.makefile all
 # make -f learn_c.makefile clean
+RM = /bin/rm
 ###
 CC = gcc
 CFLAGS = -g -Wall
@@ -63,8 +64,11 @@ $(LBIN)/fib_1.o: fib_1.c
 
 clean:
 	@printf "clean the (./bin/*) ....\n"
-	-rm -f $(LBIN)/*
+	-$(RM) -f $(LBIN)/*
 	@printf "clean is done!!!\n"
+
+test:
+	ls $(RM)
 
 run_learn_c:
 	./bin/learn_c

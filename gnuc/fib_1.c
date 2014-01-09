@@ -4,6 +4,7 @@
  * update:
  */
 #include <stdio.h>
+#include <stdlib.h>
 
 int fib(int n)
 {
@@ -13,10 +14,20 @@ int fib(int n)
 		return fib(n - 1) + fib(n - 2);
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
-	int result = fib(41);
+    int number;
+    int result;
+
+    if (argc > 1)
+        number = atoi(argv[1]);
+    else
+        number = 5;
+
+	result = fib(number);
+
 	if (result)
-		printf("the fib(41) result= %d\n", result);
+		printf("the fib(%d) result= %d\n", number, result);
+
 	return 0;
 }
