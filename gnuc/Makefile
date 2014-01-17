@@ -2,6 +2,7 @@
 # learn_c/: Makefile
 # make all
 # make lean
+# make test
 ###
 CC = gcc
 CFLAGS = -g -Wall
