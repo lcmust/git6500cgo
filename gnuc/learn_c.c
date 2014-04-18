@@ -182,3 +182,12 @@ INDEX hash3(const char *key, int table_size)
 	}
 	return hash_val;
 }
+
+INDEX hash4(const char *key, int table_size)
+{
+	unsigned int hash_val = 0;
+	while (*key != '\0') {
+		hash_val = (hash_val << 6) + *key++;
+	}
+	return hash_val;
+}

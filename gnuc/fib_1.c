@@ -31,3 +31,13 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
+
+int test()
+{
+	int a;
+	a = 0;
+	for (a = 0; a < 100; a++) {
+		;
+	}
+	return a;
+}
