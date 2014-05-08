@@ -21,10 +21,13 @@ int main(void)
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	//server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-	printf("\n%s\n", inet_ntoa(server_addr.sin_addr));
+	//printf("\n%s\n", inet_ntoa(server_addr.sin_addr));
 	server_addr.sin_port = htons(8001);
 	server_len = sizeof(server_addr);
 
+	if (gethostname(buff, strlen(buff))) {
+		printf("server' hostname: %s\n", buff);
+	}
 	printf("\n%d\n",       8001);
 	printf("\n%d\n", htons(8001));
 	printf("\n%d\n", htons(htons(8001)));
@@ -34,16 +37,16 @@ int main(void)
 
 	for (; ;) {
 		client_len = sizeof(client_addr);
-		connfd = accept(listenfd,(struct sockaddr *) &client_addr, &client_len);
-/*		printf("connection from %s, port %d\n",
+		connfd = accept(listenfd,(struct sockaddr *) &client_addr, (socklen_t *)&client_len);
+		/*		printf("connection from %s, port %d\n",
 				inet_ntop(AF_INET, &client_addr.sin_addr, buff, sizeof(buff)), ntohs(client_addr.sin_port));
- */
-	ticks = time(NULL);
-	snprintf(buff, sizeof(buff), "%24s\r\n", ctime(&ticks));
-	write(connfd, buff, strlen(buff));
-	close(connfd);
+		*/
+		ticks = time(NULL);
+		snprintf(buff, sizeof(buff), "%24s\r\n", ctime(&ticks));
+		write(connfd, buff, strlen(buff));
+		close(connfd);
 
-	printf("\n");
-	exit(0);
+		printf("\n");
+		exit(0);
 	}
 }

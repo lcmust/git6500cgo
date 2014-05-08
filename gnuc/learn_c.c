@@ -94,19 +94,24 @@ int main(int argc, char *argv[])
 		exit(-1);
 	}
 
-	char buf[8192];
 	int month_no;
+	char buf[8192] = {};
 	char *charPtrTmp;
-	for (;;) {
+	charPtrTmp = &buf;
+	for ( ; ; ) {
 		charPtrTmp = fgets(buf, sizeof(buf), fd_File);
 		if (!charPtrTmp) {
 			break;
 		}
+
 		if (myargument.mode) {
-				printf("%s\n", buf);
+			printf("DEBUG: %s\n", buf);
 		}
-		buf[strlen(buf) - 1] = '\0';
+		
 		if (strlen(buf)  > 1) {
+			if (myargument.mode)
+				DEBUG_PRINT("strlen of buf:%d", strlen(buf));
+			buf[strlen(buf) - 1] = '\0';
 			month_no = lookup_word(buf, month_names);
 			if (month_no >= 0) {
 				printf("found at %2d(%s)\n", month_no, month_names[month_no]);

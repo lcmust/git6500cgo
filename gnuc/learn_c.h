@@ -6,11 +6,11 @@
 #ifndef LEARN_C_H
 #define LEARN_C_H
 
-#define Free(ptr) \
-	do { \
-	if (NULL != ptr) \
-		free(ptr); \
-	ptr = NULL; \
+#define Free(ptr)								\
+	do {										\
+		if (NULL != ptr)						\
+			free(ptr);							\
+		ptr = NULL;								\
 	} while (0)
 
 struct name_st {
@@ -20,6 +20,6 @@ struct name_st {
 	char *other;
 };
 
-int mylib_func1(void);
+extern int mylib_func1(void);
 
 #endif  // LEARN_C_H
